@@ -1,0 +1,51 @@
+.btn {
+  background: linear-gradient(135deg, #0d3074, #0958d7);
+  border: none;
+  padding: 15px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #0958d7, #0d3074);
+  transform: scale(1.01);
+}
+
+a {
+  color: #0d3074;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 20px;
+  background-color: #fdfcfc;
+  z-index: 1000;
+}
+
+header > nav > ul {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  color: #0d3074;
+}
+
+header > nav > ul li {
+  font-weight: 600;
+  transition: .3s ease;
+}
+
+header > nav > ul li:hover {
+  color: #0958d7;
+  border-bottom: 2px solid #0d3074;
+}

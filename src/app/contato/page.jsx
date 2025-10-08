@@ -1,0 +1,76 @@
+'use client';
+import { useState } from "react";
+import "../../styles/FormPages.css";
+
+export default function ContatoPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aqui você pode integrar com API ou backend
+    setSubmitted(true);
+  };
+
+  return (
+    <main className="page-container">
+      <h1 className="page-title" style={{ marginBottom: "3rem" }}>Entre em Contato</h1>
+
+      <div className="max-w-2xl form-card box-shadow">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="contact-name" className="form-label">Nome</label>
+            <input
+              type="text"
+              id="contact-name"
+              className="form-input"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="contact-email" className="form-label">Email</label>
+            <input
+              type="email"
+              id="contact-email"
+              className="form-input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="contact-message" className="form-label">Mensagem</label>
+            <textarea
+              id="contact-message"
+              rows="5"
+              className="form-input"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" className="btn-submit btn-blue">Enviar Mensagem</button>
+        </form>
+
+        {submitted && (
+          <div className="text-center-box" style={{ marginTop: "1.5rem" }}>
+            <p>Mensagem enviada com sucesso!</p>
+          </div>
+        )}
+
+        <div className="text-center-box" style={{ marginTop: "2rem" }}>
+          <p>Ou fale conosco via:</p>
+          <p style={{ fontWeight: 600 }}>E-mail: <a href="mailto:contato@resolveonline.com.br">contato@resolveonline.com.br</a></p>
+          <p style={{ fontWeight: 600 }}>WhatsApp: <a href="#">(XX) XXXXX-XXXX</a></p>
+        </div>
+      </div>
+    </main>
+  );
+}

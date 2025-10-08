@@ -1,0 +1,508 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100vw;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #fdfcfc;
+}
+
+.soft-blue {
+    color: #ebf5ff;
+}
+
+.medium-blue {
+    color: #0958d7;
+}
+
+.hard-blue {
+    color: #0d3074;
+}
+
+.btn {
+    background: linear-gradient(135deg, #0d3074, #0958d7);
+    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #0958d7, #0d3074);
+    transform: scale(1.01);
+}
+
+a {
+    color: #0d3074;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+main {
+    margin-top: 90px;
+}
+
+.hero-section {
+    width: 70vw;
+    height: 700px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    background-image: url(/images/bg-alt1.jpg);
+    background-size: cover;
+    background-position: top;
+    color: #ebf5ff;
+}
+
+.hero-content {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
+    padding-left: 80px;
+}
+
+.hero-content>h1 {
+    font-size: 60px;
+    line-height: 1.1em;
+}
+
+.hero-content>p {
+    line-height: 1.4em;
+}
+
+.range-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    padding: 50px 0;
+}
+
+.range-info>h2 {
+    color: #0d3074;
+}
+
+.range-content {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-element {
+    background-color: #f7f7f7;
+    padding: 30px;
+    border-radius: 20px;
+    color: #0d3074;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.info-element>h3 {
+    font-size: 15px;
+}
+
+.info-element>img {
+    width: 60px;
+    transition: transform .3s ease;
+}
+
+.info-element:hover>img {
+    transform: scale(1.1);
+}
+
+.services {
+    position: relative;
+    background-image: url(/images/bg-alt2.jpg);
+    /* background-size: cover; */
+    background-position: left;
+    padding: 100px 0;
+}
+
+.services::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    z-index: 0;
+}
+
+.services>* {
+    position: relative;
+    z-index: 1;
+}
+
+.services-txt {
+    color: #ebf5ff;
+    width: 500px;
+    margin: 0 auto 60px auto;
+    text-align: center;
+}
+
+.services-txt>h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.services-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.service-element {
+    width: 300px;
+    height: 350px;
+    border-radius: 20px;
+    padding: 50px 35px;
+    box-sizing: border-box;
+    background-color: #fdfcfc;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: end;
+    gap: 15px;
+    transition: transform .3s ease;
+}
+
+.service-element>h2 {
+    font-size: 22px;
+    color: #0958d7;
+}
+
+.service-element>p {
+    color: #474747;
+}
+
+.service-element-ico {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 20px;
+    background-color: #f3f3f3;
+    padding: 8px;
+    border-radius: 50%;
+    transition: transform .3s ease;
+}
+
+.service-element:hover {
+    transform: translateY(-8px);
+}
+
+.service-element:hover>.service-element-ico {
+    transform: scale(1.2);
+}
+
+.service-element>a {
+    text-decoration: underline;
+    font-size: 14px;
+    color: #314469;
+    transition: .3s ease;
+}
+
+.service-element>a:hover {
+    text-decoration: underline;
+    font-size: 14px;
+    color: #07183b;
+}
+
+/* ITENS */
+.passo-a-passo-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 100px 20px;
+    display: flex;
+}
+
+.passo-a-passo-header {
+    flex: 1;
+    margin-bottom: 40px;
+    padding-left: 20px;
+    color: #07183b;
+}
+
+.passo-a-passo-header small {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.passo-a-passo-header h2 {
+    font-size: 30px;
+    line-height: 1.2em;
+    margin-bottom: 20px;
+}
+
+.passo-a-passo-header p {
+    color: #474747;
+    max-width: 500px;
+    line-height: 1.2;
+}
+
+/* Estrutura da Linha do Tempo */
+.timeline-section {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.timeline-content {
+    flex: 1;
+    /* padding-right: 50px; */
+}
+
+.timeline {
+    width: auto;
+    /* Largura para a coluna da linha do tempo */
+    position: relative;
+    padding-left: 50px;
+}
+
+/* ---------------------------------- */
+/* Estilos da Linha e dos Ícones (CSS)*/
+/* ---------------------------------- */
+.timeline-item {
+    padding-bottom: 80px;
+    /* Espaçamento entre os passos */
+    position: relative;
+}
+
+/* A Linha Cinza (Fundo) */
+.timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 17px;
+    /* Posição da linha */
+    width: 4px;
+    height: 100%;
+    background-color: #dee2e6;
+    z-index: 1;
+}
+
+/* A Linha Azul (Preenchimento Progressivo) */
+.timeline-fill {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 17px;
+    /* Mesma posição da linha */
+    width: 4px;
+    height: 0;
+    /* Começa com 0 e é preenchido pelo JS */
+    background-color: #0958d7;
+    z-index: 2;
+    transition: height 0.5s ease-out;
+    /* Suaviza a animação de preenchimento */
+}
+
+/* Estilo do Círculo do Ícone */
+.timeline-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f8f9fa;
+    /* Cor de fundo padrão (branco/cinza claro) */
+    color: #495057;
+    /* Cor do ícone padrão */
+    border: 3px solid #dee2e6;
+    /* Borda padrão (cinza) */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    position: absolute;
+    top: -5px;
+    /* Ajuste para o círculo ficar centralizado com o texto */
+    left: 0;
+    z-index: 3;
+    /* Para ficar sobre a linha */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Estado Ativo/Preenchido (Azul) */
+.timeline-icon.active {
+    background-color: #0958d7;
+    /* Fundo azul */
+    color: white;
+    /* Ícone branco */
+    border-color: #0958d7;
+    /* Borda azul */
+}
+
+/* Conteúdo do Passo */
+.step-content {
+    padding-left: 60px;
+    /* Alinha o texto ao lado dos ícones */
+    margin-top: 0;
+}
+
+.step-content small {
+    display: block;
+    font-weight: bold;
+    color: #0958d7;
+    margin-bottom: 5px;
+}
+
+.step-content h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #07183b;
+}
+
+.step-content p {
+    color: #474747;
+    margin-bottom: 0;
+}
+
+.faq {
+    padding-bottom: 80px;
+}
+
+.faq-container {
+    max-width: 1000px;
+    /* Ajustei a largura para melhor visualização do grid */
+    margin: auto;
+    background-color: #f5f5f5;
+    padding: 80px;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+/* ------------------------------------- */
+/* Layout de Duas Colunas (FAQ GRID) */
+/* ------------------------------------- */
+.faq-grid {
+    display: grid;
+    /* Ajuste o valor 400px para o que for melhor para o título e 1fr para o acordeão */
+    grid-template-columns: 400px 1fr;
+    gap: 40px;
+}
+
+.faq-header {
+    /* Alinha o texto do cabeçalho */
+    padding-right: 20px;
+}
+
+.faq-header h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #07183b;
+}
+
+.faq-header p {
+    color: #474747;
+}
+
+.faq-header .help-link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #0958d7;
+}
+
+/* ------------------------------------- */
+/* Estilos do Acordeão (FAQ Content) */
+/* ------------------------------------- */
+.faq-content {
+    /* border-top: 1px solid #e9ecef; */
+    /* Linha sutil no topo do acordeão */
+}
+
+.accordion-item {
+    border-bottom: 1px solid #e9ecef;
+    /* Linha separadora para cada item */
+}
+
+.accordion-header {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 18px 0 18px 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #212529;
+    /* Cor do texto da pergunta */
+    transition: color 0.2s;
+}
+
+/* Estilo do ícone de seta */
+.arrow-icon {
+    font-size: 0.8em;
+    /* Cor #0958d7 para o ícone */
+    color: #0958d7;
+    transition: transform 0.3s ease;
+}
+
+/* Rotação da seta quando o item está expandido */
+.accordion-header[aria-expanded="true"] .arrow-icon {
+    transform: rotate(180deg);
+}
+
+/* O corpo da resposta - Esconde e mostra com JS */
+.accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.accordion-body p {
+    padding-bottom: 15px;
+    padding-top: 0;
+    margin: 0;
+    line-height: 1.2;
+    font-size: 14px;
+    color: #495057;
+}
+
+.accordion-header[aria-expanded="true"]+.accordion-body {
+    /* Este padding é adicionado apenas quando expandido */
+    max-height: 500px;
+    /* Um valor grande o suficiente para o conteúdo */
+    padding-top: 5px;
+}
+
+/* Responsividade simples para telas menores */
+@media (max-width: 900px) {
+    .faq-container {
+        width: 90vw;
+        padding: 30px;
+    }
+
+    .faq-grid {
+        grid-template-columns: 1fr;
+        /* Coluna única em telas pequenas */
+    }
+
+    .faq-header {
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+}

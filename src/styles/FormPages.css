@@ -1,0 +1,281 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #061024;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+}
+
+
+a {
+    color: #0d3074;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Estrutura de Seção (Container e Padding) */
+.page-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 130px 24px 80px 24px;
+}
+
+.header-section {
+    background: linear-gradient(135deg, #0d3074, #0958d7);
+    border-radius: 20px;
+    max-width: 55rem;
+    margin: 0 auto 50px auto;
+    color: #ebf5ff;
+    padding: 30px 50px;
+    box-sizing: border-box;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.page-title {
+    font-size: 23px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.page-subtitle {
+    font-size: 15px;
+    text-align: center;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px #0d2f742c;
+    }
+
+    50% {
+        box-shadow: 0 0 20px #0d2f74e7;
+    }
+}
+
+.max-w-3xl {
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+/* Estilo do Card Principal (Formulário) */
+.form-card {
+    background-color: #f5f5f5;
+    padding: 2rem;
+    border-radius: 20px;
+}
+
+.form-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #061024;
+}
+
+/* Estilos de Formulário */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.grid-2-cols {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .grid-2-cols {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+textarea.form-input {
+    resize: vertical;
+}
+
+/* Botões de Ação */
+.btn-submit,
+.btn-action,
+.btn-success, .btn-blue {
+    width: 100%;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    font-size: 1.125rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.btn-submit {
+    background-color: #0958d7;
+}
+
+.btn-submit:hover {
+    background-color: #0750c5;
+    transform: scale(1.003);
+}
+
+.btn-blue {
+    background: linear-gradient(135deg, #0d3074, #0958d7);
+}
+
+.btn-blue:hover {
+    background: linear-gradient(135deg, #0958d7, #0d3074);
+    transform: scale(1.01);
+}
+
+/* Caixa de Resultado do Simulador */
+.result-box {
+    display: none;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--color-result-bg);
+    border: 1px solid var(--color-result-border);
+}
+
+.result-box>button {
+    margin-top: 20px;
+}
+
+.result-box h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Estilos de Botões de Ação dentro do Resultado */
+.result-box .btn-success {
+    background: linear-gradient(135deg, #02463a, #006D5B);
+}
+
+.result-box .btn-success:hover {
+    background: linear-gradient(135deg, #006D5B, #02463a);
+    transform: scale(1.003);
+}
+
+.result-box .btn-action {
+    background-color: #d1450e;
+}
+
+.result-box .btn-action:hover {
+    background-color: #c2410c;
+    transform: scale(1.003);
+}
+
+
+/* Estilos Específicos */
+.text-sm-gray {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.radio-group label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+.text-center-box {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.text-center-box p {
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+
+.text-center-box a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.text-center-box a:hover {
+    text-decoration: underline;
+}
+
+.text-red-700 {
+    color: #b91c1c;
+}
+
+.text-green-700 {
+    color: #15803d;
+}
+
+.text-blue-800 {
+    color: #1e40af;
+}
+
+.list-disc {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.list-disc li {
+    margin-bottom: 0.25rem;
+}
+
+/* Estilo para a página Sobre Nós */
+.text-content-sobre {
+    max-width: 56rem;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    color: #0958d7;
+}
+
+.text-content-sobre p {
+    margin-bottom: 1.5rem;
+    color: #4b5563;
+}
