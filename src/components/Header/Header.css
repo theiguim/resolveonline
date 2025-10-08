@@ -1,51 +1,112 @@
-.btn {
-  background: linear-gradient(135deg, #0d3074, #0958d7);
-  border: none;
-  padding: 15px;
-  border-radius: 20px;
-  color: white;
-  font-weight: bolder;
-  cursor: pointer;
-  transition: .3s ease;
-}
-
-.btn:hover {
-  background: linear-gradient(135deg, #0958d7, #0d3074);
-  transform: scale(1.01);
-}
-
-a {
-  color: #0d3074;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+.header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-evenly;
-  padding: 20px;
-  background-color: #fdfcfc;
+  padding: 1.2rem 5rem;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
   z-index: 1000;
 }
 
-header > nav > ul {
+.logo a {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #07183b;
+  text-decoration: none;
+}
+
+.nav ul {
   display: flex;
-  gap: 10px;
   list-style: none;
-  color: #0d3074;
+  gap: 1rem;
 }
 
-header > nav > ul li {
-  font-weight: 600;
-  transition: .3s ease;
+.nav ul li a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #07183b;
+  transition: color 0.2s;
 }
 
-header > nav > ul li:hover {
+.nav ul li a:hover {
   color: #0958d7;
-  border-bottom: 2px solid #0d3074;
+}
+
+.btn {
+  background-color: #0958d7;
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background-color: #0b4ebd;
+}
+
+/* --- HAMBÚRGUER --- */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  height: 3px;
+  width: 100%;
+  background-color: #07183b;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 800px) {
+  .nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .btn {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
 }

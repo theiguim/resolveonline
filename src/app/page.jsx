@@ -1,6 +1,6 @@
 'use client';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import "./../styles/Landing.css";
 
 export default function Home() {
@@ -41,6 +41,7 @@ export default function Home() {
     window.addEventListener('resize', updateTimeline);
     updateTimeline();
 
+
     // ---------- FAQ ACCORDION ----------
     const accordion = document.getElementById('faqAccordion');
     if (accordion) {
@@ -76,18 +77,35 @@ export default function Home() {
     };
   }, []);
 
+  // ---------- ServiceScroll ----------
+
+  const scrollRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
 
 
   return (
     <main>
       <section className="hero-section">
-        <div className="hero-content">
-          <h1>Seus Direitos, Nossa Luta.</h1>
-          <p>
-            Resolvemos problemas com golpes Pix, voos cancelados, cobranças indevidas de energia e negativas de planos de saúde.
-            Veja se você tem direito.
-          </p>
-          <button className="btn">Fale Conosco</button>
+        <div className='hero-section-wrapper'>
+          <div className="hero-content">
+            <h1>Seus Direitos, Nossa Luta.</h1>
+            <p>
+              Resolvemos problemas com golpes Pix, voos cancelados, cobranças indevidas de energia e negativas de planos de saúde.
+              Veja se você tem direito.
+            </p>
+            <button className="btn">Fale Conosco</button>
+          </div>
         </div>
       </section>
 
@@ -121,7 +139,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="services-content">
+        <div className="services-content" ref={scrollRef}>
           <div className="service-element">
             <img
               className="service-element-ico"
@@ -165,6 +183,11 @@ export default function Home() {
             <p>Negativa de cobertura, reajuste abusivo ou descumprimento de prazos? Saiba o que fazer.</p>
             <a href="/saude">Conhecer meus direitos →</a>
           </div>
+        </div>
+
+        <div className="services-controls" style={{ maxWidth: 1260, margin: '0 auto', paddingLeft: 10 }}>
+          <button onClick={scrollLeft} className="scroll-btn">←</button>
+          <button onClick={scrollRight} className="scroll-btn" style={{ marginLeft: 8 }}>→</button>
         </div>
       </section>
 
