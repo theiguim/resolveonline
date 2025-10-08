@@ -201,11 +201,11 @@ export default function Home() {
         <div className="passo-a-passo-header">
           <small>COMO FUNCIONA</small>
           <h2>
-            Siga estas <strong className="medium-blue">3 etapas</strong> para garantir sua indenização
+            Entenda em<strong className="medium-blue">3 passos simples</strong> como garantimos seu direito.
           </h2>
           <p>
-            Receber sua indenização de voo nunca foi tão fácil. Nós cuidamos de toda a parte burocrática e você recebe
-            sem complicações.
+            Você informa o ocorrido, nós cuidamos de toda a parte jurídica e o valor chega direto na sua conta.
+            Sem papelada, sem audiências e sem enrolação.
           </p>
         </div>
 
@@ -217,7 +217,7 @@ export default function Home() {
             <div className="timeline-icon"><i className="fas fa-clock"></i></div>
             <div className="step-content">
               <small>PASSO 1</small>
-              <h4>Faça seu pedido de indenização em 2 min</h4>
+              <h4>Preencha o formulário em poucos minutos</h4>
               <p>Garantimos rapidez e total segurança aos seus dados.</p>
             </div>
           </div>
@@ -226,8 +226,8 @@ export default function Home() {
             <div className="timeline-icon"><i className="fas fa-check-square"></i></div>
             <div className="step-content">
               <small>PASSO 2</small>
-              <h4>A gente cuida de tudo pra você</h4>
-              <p>Negociamos com a companhia aérea e cuidamos de todo o processo.</p>
+              <h4>Deixe que nossa equipe jurídica atue por você</h4>
+              <p>Negociamos com a parte responsável e cuidamos de todo o processo.</p>
             </div>
           </div>
 
@@ -235,8 +235,8 @@ export default function Home() {
             <div className="timeline-icon"><i className="fas fa-credit-card"></i></div>
             <div className="step-content">
               <small>PASSO 3</small>
-              <h4>Você recebe sua indenização</h4>
-              <p>Assim que a companhia paga, transferimos para sua conta.</p>
+              <h4>Receba o valor da indenização</h4>
+              <p>Assim que o processo é finalizado, transferimos o valor direto para sua conta.</p>
             </div>
           </div>
         </div>
@@ -258,52 +258,52 @@ export default function Home() {
             <div className="faq-content" id="faqAccordion">
               <div className="accordion-item">
                 <button className="accordion-header" aria-expanded="false">
-                  <span>Por que devo fazer meu pedido de indenização com a AirHelp?</span>
+                  <span>Por que devo fazer meu pedido de indenização com a Resolve Online?</span>
                   <i className="fas fa-chevron-down arrow-icon"></i>
                 </button>
                 <div className="accordion-body">
                   <p>
-                    A AirHelp é a líder mundial em indenização de voos, cuidando de toda a burocracia para você.
-                    Nossos especialistas garantem o máximo de sucesso com o mínimo de esforço de sua parte.
+                    A Resolve Online combina tecnologia com atuação jurídica especializada para garantir que você receba o que tem direito,
+                    de forma rápida e sem burocracia. Cuidamos de todo o processo — da análise à indenização — enquanto você acompanha tudo online.
                   </p>
                 </div>
               </div>
 
               <div className="accordion-item">
                 <button className="accordion-header" aria-expanded="false">
-                  <span>Quais documentos são necessários para dar entrada em um pedido de indenização?</span>
+                  <span>Quais documentos preciso enviar para iniciar meu pedido?</span>
                   <i className="fas fa-chevron-down arrow-icon"></i>
                 </button>
                 <div className="accordion-body">
                   <p>
-                    Normalmente, precisamos apenas da sua <strong>reserva de voo</strong> (e-ticket ou número da reserva)
-                    e dos <strong>detalhes dos passageiros</strong> para iniciarmos o processo de análise.
+                    Em geral, basta fornecer <strong>seus dados básicos</strong> e <strong>as informações do caso</strong> (como comprovantes, faturas ou protocolo de atendimento).
+                    Nosso sistema identifica automaticamente o que é necessário conforme o tipo de direito que você está reivindicando.
                   </p>
                 </div>
               </div>
 
               <div className="accordion-item">
                 <button className="accordion-header" aria-expanded="false">
-                  <span>É possível pedir indenização para quem viajou comigo?</span>
+                  <span>Posso incluir outras pessoas no mesmo pedido?</span>
                   <i className="fas fa-chevron-down arrow-icon"></i>
                 </button>
                 <div className="accordion-body">
                   <p>
-                    Sim, você pode incluir outros passageiros da mesma reserva, desde que tenha a autorização deles
-                    para fazer o pedido em nome de todos.
+                    Sim. Se o problema afetou outras pessoas — como familiares ou companheiros de viagem — você pode incluir todos no mesmo pedido,
+                    desde que tenha autorização ou vínculo direto com eles. Assim, o processo segue de forma conjunta.
                   </p>
                 </div>
               </div>
 
               <div className="accordion-item">
                 <button className="accordion-header" aria-expanded="false">
-                  <span>Há algum limite de prazo para fazer meu pedido de indenização?</span>
+                  <span>Existe um prazo limite para solicitar a indenização?</span>
                   <i className="fas fa-chevron-down arrow-icon"></i>
                 </button>
                 <div className="accordion-body">
                   <p>
-                    O prazo varia dependendo do país e da legislação aplicável. Em muitos casos, você pode reivindicar voos
-                    de até <strong>3 anos</strong> atrás. É melhor verificar o quanto antes.
+                    Sim. Cada tipo de caso possui um prazo legal específico — em geral, é possível reivindicar prejuízos de até 
+                    <strong> 3 a 5 anos</strong> atrás, dependendo da situação. O ideal é registrar seu pedido o quanto antes para evitar perda de direito.
                   </p>
                 </div>
               </div>
