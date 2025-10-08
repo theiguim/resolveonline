@@ -2,6 +2,7 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useEffect, useRef, useState } from 'react';
 import "./../styles/Landing.css";
+import Link from 'next/link';
 
 export default function Home() {
 
@@ -104,7 +105,7 @@ export default function Home() {
               Resolvemos problemas com golpes Pix, voos cancelados, cobranças indevidas de energia e negativas de planos de saúde.
               Veja se você tem direito.
             </p>
-            <button className="btn">Fale Conosco</button>
+            <a href="#services"><button className="btn">Verificar meus direitos</button></a>
           </div>
         </div>
       </section>
@@ -130,7 +131,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="services">
+      <section className="services" id='services'>
         <div className="services-txt">
           <h2>Áreas de atuação</h2>
           <p>
@@ -148,7 +149,8 @@ export default function Home() {
             />
             <h2>Fraudes com Pix (MED)</h2>
             <p>Caiu em um golpe? Auxiliamos você a acionar o Mecanismo Especial de Devolução para reaver seu dinheiro.</p>
-            <a href="/pix">Verificar meu caso →</a>
+            {/* <a href="/pix">Verificar meu caso →</a> */}
+            <Link href="/pix">Verificar meu caso →</Link>
           </div>
 
           <div className="service-element">
@@ -159,7 +161,8 @@ export default function Home() {
             />
             <h2>Direito do Passageiro Aéreo</h2>
             <p>Voo atrasado, cancelado ou overbooking? Calcule sua indenização e conheça seus direitos.</p>
-            <a href="/aereo">Calcular indenização →</a>
+            {/* <a href="/aereo">Calcular indenização →</a> */}
+            <Link href="/aereo">Calcular indenização →</Link>
           </div>
 
           <div className="service-element">
@@ -170,7 +173,8 @@ export default function Home() {
             />
             <h2>Interrupção de Energia</h2>
             <p>Ficou sem luz por muito tempo? Você pode ter direito a créditos por descumprimento dos limites DIC/FIC.</p>
-            <a href="/energia">Analisar fatura →</a>
+            {/* <a href="/energia">Analisar fatura →</a> */}
+            <Link href="/energia">Analisar fatura →</Link>
           </div>
 
           <div className="service-element">
@@ -181,7 +185,8 @@ export default function Home() {
             />
             <h2>Planos de Saúde (ANS)</h2>
             <p>Negativa de cobertura, reajuste abusivo ou descumprimento de prazos? Saiba o que fazer.</p>
-            <a href="/saude">Conhecer meus direitos →</a>
+            {/* <a href="/saude">Conhecer meus direitos →</a> */}
+            <Link href="/saude">Conhecer meus direitos →</Link>
           </div>
         </div>
 

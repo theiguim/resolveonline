@@ -24,17 +24,17 @@ export default function Header() {
 
       <nav className={`nav ${menuOpen ? 'open' : ''}`}>
         <ul>
-          <li><Link href="/">Início</Link></li>
-          <li><Link href="/pix">PIX</Link></li>
-          <li><Link href="/aereo">Aéreo</Link></li>
-          <li><Link href="/energia">Energia</Link></li>
-          <li><Link href="/saude">Saúde</Link></li>
-          <li><Link href="/sobre">Sobre</Link></li>
-          <li><Link href="/contato">Contato</Link></li>
+          <li><Link href="/" onClick={() => setMenuOpen(false)}>Início</Link></li>
+          <li><Link href="/pix" onClick={() => setMenuOpen(false)}>PIX</Link></li>
+          <li><Link href="/aereo" onClick={() => setMenuOpen(false)}>Aéreo</Link></li>
+          <li><Link href="/energia" onClick={() => setMenuOpen(false)}>Energia</Link></li>
+          <li><Link href="/saude" onClick={() => setMenuOpen(false)}>Saúde</Link></li>
+          <li><Link href="/sobre" onClick={() => setMenuOpen(false)}>Sobre</Link></li>
+          <li><Link href="/contato" onClick={() => setMenuOpen(false)}>Contato</Link></li>
         </ul>
       </nav>
 
-      <button className="btn">Fale Conosco</button>
+      <Link className='btn-header' href="/contato"><button className="btn">Fale Conosco</button></Link>
     </header>
   );
 }

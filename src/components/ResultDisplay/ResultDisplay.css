@@ -1,0 +1,132 @@
+/* Botões de Ação */
+.btn-submit,
+.btn-action,
+.btn-success, .btn-blue {
+    width: 100%;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    font-size: 1.125rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.btn-submit {
+    background-color: #0958d7;
+}
+
+.btn-submit:hover {
+    background-color: #0750c5;
+    transform: scale(1.003);
+}
+
+.btn-blue {
+    background: linear-gradient(135deg, #0d3074, #0958d7);
+}
+
+.btn-blue:hover {
+    background: linear-gradient(135deg, #0958d7, #0d3074);
+    transform: scale(1.01);
+}
+
+/* Caixa de Resultado do Simulador */
+.result-box {
+ /* border: 2px solid #e5e7eb; */
+  border-radius: 10px;
+  padding: 20px;
+  /* background-color: #f9fafb; */
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+.result-box>button {
+    margin-top: 20px;
+}
+
+.result-box h4 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Estilos de Botões de Ação dentro do Resultado */
+.result-box .btn-success {
+    background: linear-gradient(135deg, #02463a, #006D5B);
+}
+
+.result-box .btn-success:hover {
+    background: linear-gradient(135deg, #006D5B, #02463a);
+    transform: scale(1.003);
+}
+
+.result-box .btn-action {
+    background-color: #d1450e;
+}
+
+.result-box .btn-action:hover {
+    background-color: #c2410c;
+    transform: scale(1.003);
+}
+
+
+/* Estilos Específicos */
+.text-sm-gray {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.radio-group label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+.text-center-box {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.text-center-box p {
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+
+.text-center-box a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.text-center-box a:hover {
+    text-decoration: underline;
+}
+
+.text-red-700 {
+    color: #b91c1c;
+}
+
+.text-green-700 {
+    color: #15803d;
+}
+
+.text-blue-800 {
+    color: #1e40af;
+}
+
+.list-disc {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.list-disc li {
+    margin-bottom: 0.25rem;
+}
+
