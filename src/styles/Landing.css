@@ -55,7 +55,6 @@ main {
 .hero-section {
     max-width: 1500px;
     margin: auto;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -459,7 +458,6 @@ main {
 }
 
 .faq-header {
-    /* Alinha o texto do cabeçalho */
     padding-right: 20px;
 }
 
@@ -602,6 +600,43 @@ main {
 
 @media (max-width: 800px) {
 
+
+    /* .hero-section {
+        max-width: 1500px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    } */
+
+    .hero-section-wrapper {
+        padding: 20px;
+        justify-content: end;
+        align-items: center;
+        background-image:
+            linear-gradient(to top, black 0%, transparent 90%),
+            url(/images/bg-alt1.jpg);
+    }
+
+    .hero-content {
+        width: auto;
+        max-width: 400px;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 0 40px 0;
+    }
+
+    .hero-content>h1 {
+        font-size: 50px;
+        line-height: 1em;
+    }
+
+    .hero-content>p {
+        line-height: 1.2em;
+    }
+
     .range-content {
         flex-direction: column;
         gap: 25px;
@@ -624,5 +659,16 @@ main {
         /* IE e Edge */
         scrollbar-width: none;
         /* Firefox */
+    }
+}
+
+@media (max-width:450px) {
+    .faq-header h2 {
+        font-size: 1.8em;
+    }
+
+    .hero-content>h1 {
+        font-size: 46px;
+        line-height: 1em;
     }
 }
