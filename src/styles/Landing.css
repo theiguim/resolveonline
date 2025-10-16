@@ -202,6 +202,7 @@ a {
     padding-top: 10px;
     max-width: 1260px;
     margin: auto;
+     height: 600px;
 }
 
 .services-content::-webkit-scrollbar {
@@ -219,7 +220,7 @@ a {
     scroll-snap-align: start;
     /* cada card se alinha ao início ao rolar */
     width: 300px;
-    height: 490px;
+    height: 540px;
     border-radius: 20px;
     padding: 230px 35px 25px 35px;
     box-sizing: border-box;

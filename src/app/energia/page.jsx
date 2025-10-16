@@ -75,18 +75,18 @@ export default function EnergiaPage() {
                     </p>
                 </div>
 
-                <div className="range-content">
+                  <div className="range-content">
                     <div className="info-element">
-                        <img src="/images/icos/15anos.png" alt="15 anos de atuação" />
-                        <h3>Preencha o simulador</h3>
+                        <img src="/images/icos/preencher.png" alt="15 anos de atuação" />
+                        <h3>1. Preencha o formulário simulador</h3>
                     </div>
                     <div className="info-element">
-                        <img src="/images/icos/nacional.png" alt="Atuação Nacional" />
-                        <h3>Verifique se o seu caso é elegível</h3>
+                        <img src="/images/icos/verificar.png" alt="Atuação Nacional" />
+                        <h3>2. Verifique se o seu caso é elegível</h3>
                     </div>
                     <div className="info-element">
-                        <img src="/images/icos/seguro.png" alt="Métricas LGPD" />
-                        <h3>Continue o atendimento pelo WhatsApp</h3>
+                        <img src="/images/icos/atendimento.png" alt="Métricas LGPD" />
+                        <h3>3. Continue o atendimento pelo WhatsApp</h3>
                     </div>
                 </div>
             </div>

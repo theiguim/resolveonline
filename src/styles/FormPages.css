@@ -414,7 +414,7 @@ textarea.form-input {
 }
 
 
-.services-content {
+.services-landing .services-content {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -435,16 +435,16 @@ textarea.form-input {
     height: 600px;
 }
 
-.services-content::-webkit-scrollbar {
+.services-landing .services-content::-webkit-scrollbar {
     height: 8px;
 }
 
-.services-content::-webkit-scrollbar-thumb {
+.services-landing .services-content::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
 
-.service-element {
+.services-landing .service-element {
     flex: 0 0 auto;
     /* impede que reduza o tamanho */
     scroll-snap-align: start;
