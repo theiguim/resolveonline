@@ -27,36 +27,73 @@ a {
     text-decoration: none;
 }
 
-/* Estrutura de Seção (Container e Padding) */
-.page-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 30px 24px;
+.hero-sub-section {
+    width: 100vw;
+    height: 600px;
+    margin: 0;
+
+
 }
 
-.header-section {
-    background: linear-gradient(135deg, #0d3074, #0958d7);
-    border-radius: 20px;
-    max-width: 55rem;
-    margin: 0 auto 50px auto;
-    color: #ebf5ff;
-    padding: 30px 50px;
+#pix-page {
+    background: linear-gradient(to right, #091735f3 8%, #091735c2 30%, #0917353d 70%), url('/images/services-img/pix.png');
+}
+
+#aereo-page {
+    background: linear-gradient(to right, #091735f3 8%, #091735c2 30%, #0917353d 70%), url('/images/services-img/aereo.png');
+}
+
+#energia-page {
+    background: linear-gradient(to right, #091735f3 8%, #091735c2 30%, #0917353d 70%), url('/images/services-img/energia.png');
+}
+
+#saude-page {
+    background: linear-gradient(to right, #091735f3 8%, #091735c2 30%, #0917353d 70%), url('/images/services-img/saude.png');
+}
+
+#pix-page,
+#aereo-page,
+#energia-page,
+#saude-page {
+    background-position: 0% 20%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: 80px;
     box-sizing: border-box;
-    animation: pulse 3s ease-in-out infinite;
+}
+
+
+
+
+.header-section {
+    max-width: 800px;
+    color: #ebf5ff;
+    box-sizing: border-box;
+    padding-left: 70px;
 }
 
 .page-title {
-    font-size: 23px;
+    font-size: 50px;
     font-weight: 700;
-    text-align: center;
-    margin-bottom: 5px;
+    /* text-align: center; */
+    margin-bottom: 20px;
+    line-height: 1.2em;
 }
 
 .page-subtitle {
-    font-size: 15px;
-    text-align: center;
+    font-size: 20px;
+    /* text-align: center; */
 }
 
+.page-title-alt{
+margin-top: 150px;
+text-align: center;
+}
+
+/* 
 @keyframes pulse {
 
     0%,
@@ -67,30 +104,124 @@ a {
     50% {
         box-shadow: 0 0 20px #0d2f74e7;
     }
-}
+} */
 
 .max-w-3xl {
     max-width: 48rem;
     margin-left: auto;
     margin-right: auto;
+    /* background-color: red; */
+
+    /* overflow: hidden; */
 }
+
+.menu-landing {
+    max-width: 900px;
+    margin: 80px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.menu-landing-header {
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0 30px;
+}
+
+.menu-landing-header>h1 {
+    font-weight: bolder;
+    margin-bottom: 10px;
+    color: #07183b;
+}
+
+
+.range-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    padding: 50px 0;
+}
+
+.range-info>h2 {
+    color: #0d3074;
+}
+
+.range-content {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-landing .info-element {
+    background-color: #f7f7f7;
+    padding: 30px;
+    border-radius: 20px;
+    color: #0d3074;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+
+    width: 200px;
+    text-align: center;
+}
+
+.info-element>h3 {
+    font-size: 15px;
+}
+
+.info-element>img {
+    width: 60px;
+    transition: transform .3s ease;
+}
+
+.info-element:hover>img {
+    transform: scale(1.1);
+}
+
 
 
 
 
 /* Estilo do Card Principal (Formulário) */
 .form-card {
-    background-color: #f5f5f5;
+    /* background-color: #fafafa; */
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.041);
     padding: 2rem;
+    box-sizing: border-box;
     border-radius: 20px;
+    color: white;
+    background: linear-gradient(to right, #081631 30%, #0a2457 100%);
 }
+
+.form-card-contato {
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.041);
+    padding: 2rem;
+    box-sizing: border-box;
+    border-radius: 20px;
+    color: white;
+    max-width: 700px;
+    margin: 0 auto 100px auto;
+    color: #07183b;
+}
+
+
 
 .form-title {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
     text-align: center;
-    color: #061024;
+    color: white;
 }
 
 /* Estilos de Formulário */
@@ -138,7 +269,8 @@ textarea.form-input {
 /* Botões de Ação */
 .btn-submit,
 .btn-action,
-.btn-success, .btn-blue {
+.btn-success,
+.btn-blue {
     width: 100%;
     font-weight: 700;
     padding: 0.75rem 1.5rem;
@@ -164,6 +296,22 @@ textarea.form-input {
 }
 
 .btn-blue:hover {
+    background: linear-gradient(135deg, #0958d7, #0d3074);
+    transform: scale(1.01);
+}
+
+.btn {
+    background: linear-gradient(135deg, #0d3074, #0958d7);
+    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.btn:hover {
     background: linear-gradient(135deg, #0958d7, #0d3074);
     transform: scale(1.01);
 }
@@ -234,7 +382,7 @@ textarea.form-input {
 /* Estilo para a página Sobre Nós */
 .text-content-sobre {
     max-width: 56rem;
-    margin: 0 auto;
+    margin: 0 auto 100px auto;
     font-size: 1.125rem;
     color: #0958d7;
 }
@@ -242,4 +390,245 @@ textarea.form-input {
 .text-content-sobre p {
     margin-bottom: 1.5rem;
     color: #4b5563;
+}
+
+
+/* services scroll */
+
+.services-landing {
+    position: relative;
+    background-color: transparent;
+    height: auto;
+    padding: 80px 0;
+}
+
+
+.services-landing>* {
+    position: relative;
+    z-index: 1;
+}
+
+.services-landing-title {
+    text-align: center;
+    color: #07183b;
+}
+
+
+.services-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow-x: auto;
+    /* permite rolagem horizontal */
+    scroll-behavior: smooth;
+    /* rolagem suave */
+    scroll-snap-type: x mandatory;
+    /* encaixe nos elementos */
+    -webkit-overflow-scrolling: touch;
+    /* suporte melhor em iOS */
+    padding-bottom: 10px;
+    /* evita corte inferior no mobile */
+    padding-top: 10px;
+    max-width: 940px;
+    margin: auto;
+    height: 600px;
+}
+
+.services-content::-webkit-scrollbar {
+    height: 8px;
+}
+
+.services-content::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.service-element {
+    flex: 0 0 auto;
+    /* impede que reduza o tamanho */
+    scroll-snap-align: start;
+    /* cada card se alinha ao início ao rolar */
+    width: 300px;
+    height: 550px;
+    border-radius: 20px;
+    padding: 230px 35px 25px 35px;
+    box-sizing: border-box;
+    /* background-color: #f3f3f3; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    transition: transform .3s ease;
+
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.041);
+
+}
+
+.service-element>h2 {
+    font-size: 22px;
+    color: #0958d7;
+}
+
+.service-element>p {
+    color: #474747;
+}
+
+.service-element-img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    border-radius: 20px 20px 0 0;
+}
+
+.service-element-ico {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 20px;
+    background-color: #f3f3f3;
+    padding: 8px;
+    border-radius: 50%;
+    transition: transform .3s ease;
+    z-index: 10;
+}
+
+.service-element:hover {
+    transform: translateY(-8px);
+}
+
+.service-element:hover>.service-element-ico {
+    transform: scale(1.2);
+}
+
+.service-element>a {
+    text-decoration: underline;
+    font-size: 14px;
+    color: #314469;
+    transition: .3s ease;
+}
+
+.service-element>a:hover {
+    text-decoration: underline;
+    font-size: 14px;
+    color: #07183b;
+}
+
+.services-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.scroll-btn {
+    background-color: #0958d7;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bolder;
+    transition: background-color 0.3s ease;
+
+    display: none;
+}
+
+.scroll-btn:hover {
+    background-color: #0d3074;
+}
+
+
+@media(max-width:940px) {
+
+    .scroll-btn {
+        display: block;
+        margin-left: 20px;
+    }
+
+    .services-content {
+        margin-left: 20px;
+    }
+
+    .services-content::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    #pix-page {
+        background: linear-gradient(to top, #091735 25%, #091735d3 40%, #0917353d 70%), url('/images/services-img/pix.png');
+    }
+
+    #aereo-page {
+        background: linear-gradient(to top, #091735 25%, #091735d3 40%, #0917353d 70%), url('/images/services-img/aereo.png');
+    }
+
+    #energia-page {
+        background: linear-gradient(to top, #091735 25%, #091735d3 40%, #0917353d 70%), url('/images/services-img/aereo.png');
+    }
+
+    #saude-page {
+        background: linear-gradient(to top, #091735 25%, #091735d3 40%, #0917353d 70%), url('/images/services-img/aereo.png');
+    }
+
+    #pix-page,
+    #aereo-page,
+    #energia-page,
+    #saude-page {
+        background-position: center;
+        align-items: end;
+        background-size: cover;
+        padding-bottom: 50px;
+
+    }
+
+    .header-section {
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .page-title {
+        font-size: 40px;
+        line-height: 1.2em;
+    }
+
+    .page-subtitle {
+        font-size: 17px;
+    }
+
+    .range-content {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .info-element {
+        width: 260px;
+    }
+
+    .scroll-btn {
+        display: none;
+    }
+
+    .services-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .services-content {
+        -ms-overflow-style: none;
+        /* IE e Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+
+    .services-txt>h2 {
+        /* background-color: red; */
+    }
 }

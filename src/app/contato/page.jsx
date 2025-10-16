@@ -16,9 +16,9 @@ export default function ContatoPage() {
 
   return (
     <main className="page-container">
-      <h1 className="page-title" style={{ marginBottom: "3rem", color: "#0958d7" }}>Entre em Contato</h1>
+      <h1 className="page-title-alt" style={{ marginBottom: "3rem", color: "#0958d7" }}>Entre em contato conosco</h1>
 
-      <div className="max-w-2xl form-card box-shadow">
+      <div className="form-card-contato box-shadow">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="contact-name" className="form-label">Nome</label>

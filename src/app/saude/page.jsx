@@ -1,16 +1,17 @@
 // SaudePage.jsx
 
 'use client';
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "../../styles/FormPages.css";
 import ResultDisplay from "../../components/ResultDisplay/ResultDisplay"; // Componente Genérico
+import Link from "next/link";
 
 export default function SaudePage() {
     const [problema, setProblema] = useState("negativa");
     const [urgencia, setUrgencia] = useState(""); // Captura do contexto (Sim/Não)
-    const [operadora, setOperadora] = useState(""); 
+    const [operadora, setOperadora] = useState("");
     const [tipoPlano, setTipoPlano] = useState("individual"); // Para lógica de Reajuste
-    const [documentosProntos, setDocumentosProntos] = useState(""); 
+    const [documentosProntos, setDocumentosProntos] = useState("");
 
     const [resultadoCalculo, setResultadoCalculo] = useState(null);
 
@@ -37,7 +38,7 @@ export default function SaudePage() {
                 ];
                 checklist.push("Negativa formal de cobertura da operadora.");
                 break;
-                
+
             case "prazo":
                 content = [
                     "Prazos máximos por tipo de atendimento (RN 259/ANS):",
@@ -49,17 +50,17 @@ export default function SaudePage() {
                 break;
 
             case "reajuste":
-                const reajusteContent = tipoPlano === 'individual' 
+                const reajusteContent = tipoPlano === 'individual'
                     ? "Reajustes em planos individuais/familiares são limitados ao percentual máximo definido pela ANS. Seu reajuste é ilegal se estiver acima deste teto."
                     : "Reajustes em planos coletivos são negociados, mas não podem ser abusivos. É fundamental solicitar a documentação que justifique o aumento.";
-                
+
                 content = [
                     `Tipo de Plano: ${tipoPlano.toUpperCase()}. ${reajusteContent}`,
                     "Próximos passos: Solicitar a documentação completa (memória de cálculo) que justifique o aumento e avaliar se o percentual é abusivo."
                 ];
                 checklist.push("Comunicado de reajuste e os últimos 3 boletos pagos.");
                 break;
-                
+
             case "reembolso":
                 content = [
                     "A glosa deve ser sempre justificada pela operadora.",
@@ -79,19 +80,62 @@ export default function SaudePage() {
         });
     };
 
+    const scrollRef = useRef(null);
+
+    const scrollLeft = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+        }
+    };
+
+    const scrollRight = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+        }
+    };
+
     return (
         <main className="page-container">
-            <div className="header-section">
-                <h1 className="page-title">Plano de Saúde Negou Cobertura?</h1>
-                <p className="page-subtitle">
-                    Seu plano não cumpriu os prazos da ANS, negou um procedimento ou aplicou um reajuste abusivo? Entenda o que fazer.
-                </p>
+
+            <div className="hero-sub-section" id="saude-page" >
+                <div className="header-section">
+                    <h1 className="page-title">Plano de saúde negou cobertura?</h1>
+                    <p className="page-subtitle">
+                        Seu plano <strong>não cumpriu os prazos da ANS, negou um procedimento ou aplicou um reajuste abusivo?</strong> Use nosso simulador para entender se <strong>você tem direito a contestação e quais passos seguir</strong>.
+                    </p>
+                </div>
             </div>
+
+            <div className="menu-landing">
+
+                <div className="menu-landing-header">
+                    <h1>Como funciona:</h1>
+                    <p>
+                        <strong>Preencha o simulador</strong> com os dados do seu plano e situação. Caso o seu <strong>caso seja elegível</strong>, você poderá continuar o atendimento diretamente pelo WhatsApp <strong>com nossa equipe, que vai orientar cada passo para abrir a contestação e acompanhar o processo de forma segura e transparente</strong>.
+                    </p>
+                </div>
+
+                <div className="range-content">
+                    <div className="info-element">
+                        <img src="/images/icos/15anos.png" alt="15 anos de atuação" />
+                        <h3>Preencha o simulador</h3>
+                    </div>
+                    <div className="info-element">
+                        <img src="/images/icos/nacional.png" alt="Atuação Nacional" />
+                        <h3>Verifique se o seu caso é elegível</h3>
+                    </div>
+                    <div className="info-element">
+                        <img src="/images/icos/seguro.png" alt="Métricas LGPD" />
+                        <h3>Continue o atendimento pelo WhatsApp</h3>
+                    </div>
+                </div>
+            </div>
+
 
             <div className="max-w-3xl form-card box-shadow">
                 <h2 className="form-title">Simulador de Direitos - Planos de Saúde</h2>
                 <form id="saude-simulator-form" onSubmit={handleSubmit}>
-                    
+
                     <div className="form-group">
                         <label htmlFor="saude-problema" className="form-label">Qual é o seu problema?</label>
                         <select
@@ -134,10 +178,10 @@ export default function SaudePage() {
                             placeholder="Ex: Unimed, SulAmérica, Bradesco Saúde"
                             value={operadora}
                             onChange={(e) => setOperadora(e.target.value)}
-                            // Opcional para reduzir fricção
+                        // Opcional para reduzir fricção
                         />
                     </div>
-                    
+
                     <div className="grid-2-cols mt-4">
                         <div className="form-group">
                             <label className="form-label">O caso envolve urgência ou emergência?</label>
@@ -150,7 +194,7 @@ export default function SaudePage() {
                                 </label>
                             </div>
                         </div>
-                        
+
                         <div className="form-group">
                             <label className="form-label">Você já possui a negativa/prescrição/protocolos em mãos?</label>
                             <div className="radio-group">
@@ -174,6 +218,56 @@ export default function SaudePage() {
                 {/* Uso do ResultDisplay Genérico */}
                 {resultadoCalculo && <ResultDisplay {...resultadoCalculo} />}
             </div>
+
+            <section className="services-landing" id='services'>
+                <h1 className="services-landing-title">Confira também:</h1>
+                <div className="services-content" ref={scrollRef}>
+                    <div className="service-element">
+                        <img
+                            className="service-element-ico"
+                            src="https://img.icons8.com/?size=100&id=uqpbD9vhCDEQ&format=png&color=0d3074"
+                            alt="Fraude Pix"
+                        />
+
+                        <img className='service-element-img' src="/images/services-img/pix.png" alt="" />
+                        <h2>Fraudes com Pix (MED)</h2>
+                        <p>Caiu em um golpe? Auxiliamos você a acionar o Mecanismo Especial de Devolução para reaver seu dinheiro.</p>
+                        {/* <a href="/pix">Verificar meu caso →</a> */}
+                        <Link href="/pix"><button className='btn'>Verificar meu caso</button></Link>
+                    </div>
+                    <div className="service-element">
+                        <img
+                            className="service-element-ico"
+                            src="https://img.icons8.com/?size=100&id=12665&format=png&color=0d3074"
+                            alt="Direito do Passageiro Aéreo"
+                        />
+
+                        <img className='service-element-img' src="/images/services-img/aereo.png" alt="" />
+                        <h2>Direito do Passageiro Aéreo</h2>
+                        <p>Voo atrasado, cancelado ou overbooking? Calcule sua indenização e conheça seus direitos.</p>
+                        {/* <a href="/aereo">Calcular indenização →</a> */}
+                        <Link href="/aereo"><button className='btn'>Calcular indenização</button></Link>
+                    </div>
+
+                    <div className="service-element">
+                        <img
+                            className="service-element-ico"
+                            src="https://img.icons8.com/?size=100&id=08VQFUNfGTux&format=png&color=0d3074"
+                            alt="Interrupção de Energia"
+                        />
+                        <img className='service-element-img' src="/images/services-img/energia.png" alt="" />
+                        <h2>Interrupção de Energia</h2>
+                        <p>Ficou sem luz por muito tempo? Você pode ter direito a créditos por descumprimento dos limites DIC/FIC.</p>
+                        {/* <a href="/energia">Analisar fatura →</a> */}
+                        <Link href="/energia"><button className='btn'>Analisar fatura</button></Link>
+                    </div>
+                </div>
+
+                <div className="services-controls" style={{ maxWidth: 940, margin: '0 auto', paddingLeft: 10 }}>
+                    <button onClick={scrollLeft} className="scroll-btn">←</button>
+                    <button onClick={scrollRight} className="scroll-btn" style={{ marginLeft: 8 }}>→</button>
+                </div>
+            </section>
         </main>
     );
 }

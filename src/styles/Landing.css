@@ -48,8 +48,8 @@ a {
     text-decoration: none;
 }
 
-main {
-    margin-top: 10px;
+.main-page {
+    margin-top: 100px;
 }
 
 .hero-section {
@@ -143,8 +143,9 @@ main {
 
 .services {
     position: relative;
-    background-image: url(/images/bg-alt2.jpg);
-    /* background-size: cover; */
+    background:
+        linear-gradient(to right, #091735e3 50%, #0a245780 100%),
+        url(/images/bg-alt2.jpg);
     background-position: left;
     padding: 100px 0;
 }
@@ -165,16 +166,22 @@ main {
 
 .services-txt {
     color: #ebf5ff;
-    max-width: 500px;
-    margin: 0 auto 60px auto;
+    max-width: 800px;
+    margin: 0 auto 80px auto;
     text-align: center;
     padding: 0 30px;
     box-sizing: border-box;
 }
 
 .services-txt>h2 {
-    font-size: 30px;
+    font-size: 40px;
+    /* line-height: 1em; */
+    text-transform: uppercase;
     margin-bottom: 10px;
+}
+
+.services-txt>p {
+    font-size: 20px;
 }
 
 .services-content {
@@ -212,17 +219,17 @@ main {
     scroll-snap-align: start;
     /* cada card se alinha ao início ao rolar */
     width: 300px;
-    height: 350px;
+    height: 490px;
     border-radius: 20px;
-    padding: 50px 35px;
+    padding: 230px 35px 25px 35px;
     box-sizing: border-box;
     background-color: #fdfcfc;
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: end;
-    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
     transition: transform .3s ease;
 }
 
@@ -235,6 +242,14 @@ main {
     color: #474747;
 }
 
+.service-element-img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    border-radius: 20px 20px 0 0;
+}
+
 .service-element-ico {
     position: absolute;
     top: 10%;
@@ -244,6 +259,7 @@ main {
     padding: 8px;
     border-radius: 50%;
     transition: transform .3s ease;
+    z-index: 10;
 }
 
 .service-element:hover {
@@ -660,9 +676,14 @@ main {
         scrollbar-width: none;
         /* Firefox */
     }
+
+    .services-txt>h2 {
+        /* background-color: red; */
+    }
 }
 
 @media (max-width:450px) {
+
     .faq-header h2 {
         font-size: 1.8em;
     }

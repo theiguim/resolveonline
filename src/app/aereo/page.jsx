@@ -1,9 +1,10 @@
 // AereoPage.jsx
 
 'use client';
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "../../styles/FormPages.css";
 import ResultDisplay from "../../components/ResultDisplay/ResultDisplay"; // Componente Genérico
+import Link from "next/link";
 
 export default function AereoPage() {
     const [problema, setProblema] = useState("atraso");
@@ -59,15 +60,59 @@ export default function AereoPage() {
         });
     };
 
+    const scrollRef = useRef(null);
+
+    const scrollLeft = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+        }
+    };
+
+    const scrollRight = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+        }
+    };
+
+
     // Renderização do Componente (Mantida a estrutura original)
     return (
         <main className="page-container">
-            <div className="header-section">
-                <h1 className="page-title">Problemas com seu Voo?</h1>
-                <p className="page-subtitle">
-                    Atraso, cancelamento ou overbooking podem gerar indenização. Descubra seus direitos agora.
-                </p>
+
+            <div className="hero-sub-section" id="aereo-page" >
+                <div className="header-section">
+                    <h1 className="page-title">Teve problemas com seu voo?</h1>
+                    <p className="page-subtitle">
+                        <strong>Atrasos, cancelamentos, overbooking ou extravio de bagagem podem gerar indenização</strong>. Use nossa calculadora gratuita e <strong>descubra se você tem direito agora mesmo</strong>.
+                    </p>
+                </div>
             </div>
+
+            <div className="menu-landing">
+
+                <div className="menu-landing-header">
+                    <h1>Como funciona:</h1>
+                    <p>
+                        Informe os dados do seu voo na calculadora e <strong>veja se o caso é elegível para indenização</strong>. Se houver direito, você poderá continuar o atendimento diretamente pelo WhatsApp <strong>com nossa equipe, que orientará cada passo para registrar e acompanhar a sua solicitação</strong>.
+                    </p>
+                </div>
+
+                <div className="range-content">
+                    <div className="info-element">
+                        <img src="/images/icos/15anos.png" alt="15 anos de atuação" />
+                        <h3>Preencha o simulador</h3>
+                    </div>
+                    <div className="info-element">
+                        <img src="/images/icos/nacional.png" alt="Atuação Nacional" />
+                        <h3>Verifique se o seu caso é elegível</h3>
+                    </div>
+                    <div className="info-element">
+                        <img src="/images/icos/seguro.png" alt="Métricas LGPD" />
+                        <h3>Continue o atendimento pelo WhatsApp</h3>
+                    </div>
+                </div>
+            </div>
+
 
             <div className="max-w-3xl form-card box-shadow">
                 <h2 className="form-title">Calculadora de Direitos do Passageiro Aéreo</h2>
@@ -159,6 +204,58 @@ export default function AereoPage() {
                 {/* Uso do ResultDisplay Genérico */}
                 {resultadoCalculo && <ResultDisplay {...resultadoCalculo} />}
             </div>
+
+
+            <section className="services-landing" id='services'>
+                <h1 className="services-landing-title">Confira também:</h1>
+                <div className="services-content" ref={scrollRef}>
+                    <div className="service-element">
+                        <img
+                            className="service-element-ico"
+                            src="https://img.icons8.com/?size=100&id=uqpbD9vhCDEQ&format=png&color=0d3074"
+                            alt="Fraude Pix"
+                        />
+
+                        <img className='service-element-img' src="/images/services-img/pix.png" alt="" />
+                        <h2>Fraudes com Pix (MED)</h2>
+                        <p>Caiu em um golpe? Auxiliamos você a acionar o Mecanismo Especial de Devolução para reaver seu dinheiro.</p>
+                        {/* <a href="/pix">Verificar meu caso →</a> */}
+                        <Link href="/pix"><button className='btn'>Verificar meu caso</button></Link>
+                    </div>
+
+                    <div className="service-element">
+                        <img
+                            className="service-element-ico"
+                            src="https://img.icons8.com/?size=100&id=08VQFUNfGTux&format=png&color=0d3074"
+                            alt="Interrupção de Energia"
+                        />
+                        <img className='service-element-img' src="/images/services-img/energia.png" alt="" />
+                        <h2>Interrupção de Energia</h2>
+                        <p>Ficou sem luz por muito tempo? Você pode ter direito a créditos por descumprimento dos limites DIC/FIC.</p>
+                        {/* <a href="/energia">Analisar fatura →</a> */}
+                        <Link href="/energia"><button className='btn'>Analisar fatura</button></Link>
+                    </div>
+
+                    <div className="service-element">
+                        <img
+                            className="service-element-ico"
+                            src="https://img.icons8.com/?size=100&id=35588&format=png&color=0d3074"
+                            alt="Planos de Saúde"
+                        />
+
+                        <img className='service-element-img' src="/images/services-img/saude.png" alt="" />
+                        <h2>Planos de Saúde (ANS)</h2>
+                        <p>Negativa de cobertura, reajuste abusivo ou descumprimento de prazos? Saiba o que fazer.</p>
+                        {/* <a href="/saude">Conhecer meus direitos →</a> */}
+                        <Link href="/saude"><button className='btn'>Conhecer meus direitos</button></Link>
+                    </div>
+                </div>
+
+                <div className="services-controls" style={{ maxWidth: 940, margin: '0 auto', paddingLeft: 10 }}>
+                    <button onClick={scrollLeft} className="scroll-btn">←</button>
+                    <button onClick={scrollRight} className="scroll-btn" style={{ marginLeft: 8 }}>→</button>
+                </div>
+            </section>
         </main>
     );
 }

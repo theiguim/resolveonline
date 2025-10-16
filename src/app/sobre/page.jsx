@@ -5,7 +5,7 @@ export default function SobrePage() {
     <main className="page-container">
       <section id="sobre" className="page-container">
         <div className="text-content-sobre">
-          <h1 className="page-title" style={{ marginBottom: "3rem" }}>
+          <h1 className="page-title-alt" style={{ marginBottom: "3rem" }}>
             Nossa Missão é Simplificar Seus Direitos
           </h1>
           <p>

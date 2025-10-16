@@ -96,7 +96,7 @@ export default function Home() {
 
 
   return (
-    <main>
+    <main className="main-page">
       <section className="hero-section">
         <div className='hero-section-wrapper'>
           <div className="hero-content">
@@ -133,10 +133,10 @@ export default function Home() {
 
       <section className="services" id='services'>
         <div className="services-txt">
-          <h2>Áreas de atuação</h2>
+          <h2>O que fazemos por você?</h2>
           <p>
-            Oferecemos suporte jurídico e soluções personalizadas para cada tipo de problema.
-            Nossa equipe analisa seu caso e orienta o melhor caminho para fazer valer seus direitos.
+            Oferecemos <strong>suporte jurídico</strong> e <strong>soluções personalizadas</strong> para cada tipo de problema.
+            Nossa equipe analisa seu caso e orienta o <strong>melhor caminho para fazer valer seus direitos</strong>.
           </p>
         </div>
 
@@ -147,10 +147,12 @@ export default function Home() {
               src="https://img.icons8.com/?size=100&id=uqpbD9vhCDEQ&format=png&color=0d3074"
               alt="Fraude Pix"
             />
+
+            <img className='service-element-img' src="/images/services-img/pix.png" alt="" />
             <h2>Fraudes com Pix (MED)</h2>
             <p>Caiu em um golpe? Auxiliamos você a acionar o Mecanismo Especial de Devolução para reaver seu dinheiro.</p>
             {/* <a href="/pix">Verificar meu caso →</a> */}
-            <Link href="/pix">Verificar meu caso →</Link>
+            <Link href="/pix"><button className='btn'>Verificar meu caso</button></Link>
           </div>
 
           <div className="service-element">
@@ -159,10 +161,12 @@ export default function Home() {
               src="https://img.icons8.com/?size=100&id=12665&format=png&color=0d3074"
               alt="Direito do Passageiro Aéreo"
             />
+
+            <img className='service-element-img' src="/images/services-img/aereo.png" alt="" />
             <h2>Direito do Passageiro Aéreo</h2>
             <p>Voo atrasado, cancelado ou overbooking? Calcule sua indenização e conheça seus direitos.</p>
             {/* <a href="/aereo">Calcular indenização →</a> */}
-            <Link href="/aereo">Calcular indenização →</Link>
+            <Link href="/aereo"><button className='btn'>Calcular indenização</button></Link>
           </div>
 
           <div className="service-element">
@@ -171,10 +175,11 @@ export default function Home() {
               src="https://img.icons8.com/?size=100&id=08VQFUNfGTux&format=png&color=0d3074"
               alt="Interrupção de Energia"
             />
+            <img className='service-element-img' src="/images/services-img/energia.png" alt="" />
             <h2>Interrupção de Energia</h2>
             <p>Ficou sem luz por muito tempo? Você pode ter direito a créditos por descumprimento dos limites DIC/FIC.</p>
             {/* <a href="/energia">Analisar fatura →</a> */}
-            <Link href="/energia">Analisar fatura →</Link>
+            <Link href="/energia"><button className='btn'>Analisar fatura</button></Link>
           </div>
 
           <div className="service-element">
@@ -183,10 +188,12 @@ export default function Home() {
               src="https://img.icons8.com/?size=100&id=35588&format=png&color=0d3074"
               alt="Planos de Saúde"
             />
+
+            <img className='service-element-img' src="/images/services-img/saude.png" alt="" />
             <h2>Planos de Saúde (ANS)</h2>
             <p>Negativa de cobertura, reajuste abusivo ou descumprimento de prazos? Saiba o que fazer.</p>
             {/* <a href="/saude">Conhecer meus direitos →</a> */}
-            <Link href="/saude">Conhecer meus direitos →</Link>
+            <Link href="/saude"><button className='btn'>Conhecer meus direitos</button></Link>
           </div>
         </div>
 
@@ -201,7 +208,7 @@ export default function Home() {
         <div className="passo-a-passo-header">
           <small>COMO FUNCIONA</small>
           <h2>
-            Entenda em<strong className="medium-blue">3 passos simples</strong> como garantimos seu direito.
+            Entenda em <strong className="medium-blue">3 passos simples</strong> como garantimos seu direito.
           </h2>
           <p>
             Você informa o ocorrido, nós cuidamos de toda a parte jurídica e o valor chega direto na sua conta.
@@ -218,7 +225,7 @@ export default function Home() {
             <div className="step-content">
               <small>PASSO 1</small>
               <h4>Preencha o formulário em poucos minutos</h4>
-              <p>Garantimos rapidez e total segurança aos seus dados.</p>
+              <p>Após nos enviar, garantimos rapidez e total segurança aos seus dados.</p>
             </div>
           </div>
 
@@ -302,7 +309,7 @@ export default function Home() {
                 </button>
                 <div className="accordion-body">
                   <p>
-                    Sim. Cada tipo de caso possui um prazo legal específico — em geral, é possível reivindicar prejuízos de até 
+                    Sim. Cada tipo de caso possui um prazo legal específico — em geral, é possível reivindicar prejuízos de até
                     <strong> 3 a 5 anos</strong> atrás, dependendo da situação. O ideal é registrar seu pedido o quanto antes para evitar perda de direito.
                   </p>
                 </div>
