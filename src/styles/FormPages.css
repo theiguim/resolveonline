@@ -90,6 +90,9 @@ a {
 
 .page-title-alt{
 margin-top: 150px;
+padding: 0 30px;
+line-height: 1.2em;
+box-sizing: border-box;
 text-align: center;
 }
 
@@ -382,14 +385,22 @@ textarea.form-input {
 /* Estilo para a página Sobre Nós */
 .text-content-sobre {
     max-width: 56rem;
-    margin: 0 auto 100px auto;
+    margin: auto;
     font-size: 1.125rem;
     color: #0958d7;
+    box-sizing: border-box;
+    padding: 0 30px;
 }
 
 .text-content-sobre p {
     margin-bottom: 1.5rem;
     color: #4b5563;
+}
+
+.about-img{
+    width: 100%;
+    border-radius: 20px;
+    margin: 40px 0;
 }
 
 
@@ -543,6 +554,14 @@ textarea.form-input {
     background-color: #0d3074;
 }
 
+.termos-container{
+    max-width: 1200px;
+    margin: 150px auto;
+    /* border-left: 3px solid #0d3074 ; */
+    /* padding-left: 20px; */
+    /* background-color: red; */
+}
+
 
 @media(max-width:940px) {
 
@@ -630,5 +649,9 @@ textarea.form-input {
 
     .services-txt>h2 {
         /* background-color: red; */
+    }
+
+    .text-content-sobre{
+        text-align: center;
     }
 }
