@@ -76,7 +76,8 @@ export default function SaudePage() {
             content: content,
             checklist: checklist,
             disclaimer: disclaimer,
-            ctaText: ctaText
+            ctaText: ctaText,
+            serviceType:"Saúde"
         });
     };
 

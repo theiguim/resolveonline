@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="pt-BR">
       <body className={inter.className}>
         <a href="https://wa.me/553184815969?text=Ol%C3%A1,%20eu%20gostaria%20de%20conhecer%20melhor%20a%20Resolve%20Online."
-          target="_blank"><img class="wpp-fixed" src="/images/wpp-fixed.png" alt="whatsapp link" /></a>
+          target="_blank"><img className="wpp-fixed" src="/images/wpp-fixed.png" alt="whatsapp link" /></a>
         <Header />
         <main>{children}</main>
         <Footer />

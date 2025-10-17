@@ -73,7 +73,8 @@ export default function PixPage() {
             content: content,
             checklist: checklist,
             disclaimer: disclaimer,
-            ctaText: ctaText
+            ctaText: ctaText,
+            serviceType:"PIX"
         });
     };
 

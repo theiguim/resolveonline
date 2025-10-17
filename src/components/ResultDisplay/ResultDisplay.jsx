@@ -1,31 +1,32 @@
 // src/components/ResultDisplay/ResultDisplay.jsx
-// Design System: Componente de Exibição de Resultado Padrão
+// Componente de Exibição de Resultado Padrão (com CTA WhatsApp)
 
 import React from 'react';
-import "./ResultDisplay.css"
+import "./ResultDisplay.css";
 
-// Estilos embutidos do seu HTML original foram mantidos, mas idealmente
-// seriam migrados para classes Tailwind para total padronização.
-
-export default function ResultDisplay({ title, content, ctaText, checklist, disclaimer, expenses }) {
-  // Configurações básicas para garantir que os arrays não sejam nulos
+export default function ResultDisplay({ title, content, ctaText, checklist, disclaimer, expenses, serviceType }) {
+  // Garantir que arrays não sejam nulos
   const contentArray = Array.isArray(content) ? content : (content ? [content] : []);
   const checklistArray = Array.isArray(checklist) ? checklist : [];
+
+  // Construção da mensagem do WhatsApp
+  const whatsappMessage = encodeURIComponent(
+    `Olá! Vim do simulador de ${serviceType}. ${ctaText}`
+  );
+
+  const whatsappUrl = `https://wa.me/553299526526?text=${whatsappMessage}`;
 
   return (
     <div id="result-display" className="result-box" style={{ marginTop: '1.5rem' }}>
       
-      {/* Título do Resultado (ex: Seus Direitos Prováveis / Análise Indicativa) */}
-      <h4 className="text-blue-800 font-semibold mb-3">{title}</h4>
+      {/* Título do Resultado */}
+      <h4 className="res-title">{title}</h4>
       
-      {/* Conteúdo Principal (Regras/Veredito) */}
-      <div className="mb-4">
+      {/* Conteúdo Principal */}
+      <div className="res-txt-content">
         {contentArray.map((p, index) => (
-          // Mantendo estilos originais para parágrafos
           <p 
-            key={index} 
-            style={{ marginTop: '0.5rem' }} 
-            // Destaque para indenização (do requisito Aéreo)
+            key={index}  
             className={p.includes('indenização') || p.includes('Recomendação') ? 'font-bold' : ''}
           >
             {p}
@@ -33,14 +34,14 @@ export default function ResultDisplay({ title, content, ctaText, checklist, disc
         ))}
       </div>
 
-      {/* Seção Exclusiva Aéreo: Despesas Informadas (Requisito 4.2) */}
+      {/* Despesas Informadas */}
       {expenses > 0 && (
         <p className="font-medium text-green-700 mt-3">
           Suas despesas informadas foram de: <strong>R$ {expenses.toFixed(2)}</strong>. Guarde todos os comprovantes!
         </p>
       )}
 
-      {/* Checklist de Documentos (Requisito 4.x) */}
+      {/* Checklist de Documentos */}
       {checklistArray.length > 0 && (
         <>
           <h5 className="font-semibold mt-4 text-gray-700">Checklist de Documentos Essenciais:</h5>
@@ -50,15 +51,17 @@ export default function ResultDisplay({ title, content, ctaText, checklist, disc
         </>
       )}
 
-      {/* Disclaimer/Aviso Legal (Requisito 7 - LGPD & Segurança) */}
+      {/* Disclaimer/Aviso Legal */}
       {disclaimer && (
-          <p className="mt-5 text-sm p-3 border-l-4 border-orange-500 bg-orange-100 text-orange-800">
-              {disclaimer}
-          </p>
+        <p className="res-aviso">{disclaimer}</p>
       )}
 
-      {/* CTA (Botão de Ação) */}
-      <button className="btn-success mt-4" style={{ marginTop: "1rem" }}>{ctaText}</button>
+      {/* CTA WhatsApp */}
+      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+        <button className="btn-success" style={{ marginTop: "1rem" }}>
+          {ctaText}
+        </button>
+      </a>
     </div>
   );
 }

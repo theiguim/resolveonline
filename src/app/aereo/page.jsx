@@ -56,7 +56,8 @@ export default function AereoPage() {
             expenses: d,
             checklist: checklist,
             disclaimer: disclaimer,
-            ctaText: ctaText
+            ctaText: ctaText,
+            serviceType:"Aereo"
         });
     };
 

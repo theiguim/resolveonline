@@ -36,6 +36,7 @@ export default function EnergiaPage() {
             checklist: checklist,
             disclaimer: disclaimer,
             ctaText: "Enviar Faturas para Análise",
+            serviceType:"Energia"
         });
     };
 
