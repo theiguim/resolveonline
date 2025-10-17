@@ -97,7 +97,7 @@ export default function AereoPage() {
                     </p>
                 </div>
 
-                 <div className="range-content">
+                <div className="range-content">
                     <div className="info-element">
                         <img src="/images/icos/preencher.png" alt="15 anos de atuação" />
                         <h3>1. Preencha o formulário simulador</h3>
@@ -197,7 +197,9 @@ export default function AereoPage() {
                             required
                         />
                     </div>
-
+                    <p className="text-sm-gray mt-4">
+                        As informações fornecidas têm caráter informativo e não substituem a análise direta junto à companhia aérea. Os prazos e condições seguem as normas da ANAC e do Código de Defesa do Consumidor.
+                    </p>
                     <button type="submit" className="btn-submit mt-4">Calcular Meus Direitos</button>
                 </form>
 

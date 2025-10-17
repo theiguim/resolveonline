@@ -75,7 +75,7 @@ export default function EnergiaPage() {
                     </p>
                 </div>
 
-                  <div className="range-content">
+                <div className="range-content">
                     <div className="info-element">
                         <img src="/images/icos/preencher.png" alt="15 anos de atuação" />
                         <h3>1. Preencha o formulário simulador</h3>
@@ -151,7 +151,7 @@ export default function EnergiaPage() {
                     </div>
 
                     <p className="text-sm-gray mt-4">
-                        Este verificador é indicativo. A análise completa requer o envio de documentos posteriormente.
+                        A Resolve Online auxilia consumidores na identificação de cobranças indevidas de energia elétrica. A restituição depende das regras da concessionária e da regulamentação da ANEEL.
                     </p>
 
                     <button type="submit" className="btn-submit mt-4">Verificar Possibilidade</button>

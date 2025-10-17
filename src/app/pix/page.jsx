@@ -221,7 +221,9 @@ export default function PixPage() {
                             <option>Outro</option>
                         </select>
                     </div>
-
+                    <p className="text-sm-gray mt-4">
+                        A plataforma Resolve Online atua como intermediadora digital entre consumidores e instituições financeiras. O uso do simulador não constitui representação jurídica formal. O prazo e a devolução de valores dependem das políticas do Banco Central e do banco envolvido.
+                    </p>
                     <button type="submit" className="btn-submit mt-4">Analisar Elegibilidade</button>
                 </form>
 

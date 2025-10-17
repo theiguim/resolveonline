@@ -209,9 +209,8 @@ export default function SaudePage() {
                     </div>
 
                     <p className="text-sm-gray mt-4">
-                        Este simulador fornece apenas orientações. A análise completa exige a documentação e um profissional.
+                        Simulações relacionadas a planos de saúde seguem as normas da ANS. A plataforma não realiza atendimento jurídico direto, apenas fornece informações baseadas na regulação vigente.
                     </p>
-
                     <button type="submit" className="btn-submit mt-4">Ver Próximos Passos</button>
                 </form>
 
