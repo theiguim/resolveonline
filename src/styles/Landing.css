@@ -1,0 +1,680 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100vw;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #fdfcfc;
+}
+
+.soft-blue {
+    color: #ebf5ff;
+}
+
+.medium-blue {
+    color: #0958d7;
+}
+
+.hard-blue {
+    color: #0d3074;
+}
+
+.btn {
+    background: linear-gradient(135deg, #0d3074, #0958d7);
+    border: none;
+    padding: 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #0958d7, #0d3074);
+    transform: scale(1.01);
+}
+
+a {
+    color: #0d3074;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.main-page {
+    margin-top: 100px;
+}
+
+.hero-section {
+    max-width: 1500px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-section-wrapper {
+    width: 100%;
+    min-height: 70vh;
+    height: 600px;
+    margin: 0 5vw;
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    background: linear-gradient(to right, #091735ec 8%, #091735c4 45%, #09173518 60%), url(/images/teste2.jpg);
+
+    /* background-image: url(/images/teste2.jpg); */
+    background-size: cover;
+    background-position: top;
+    color: #ebf5ff;
+}
+
+.hero-content {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
+    padding-left: 80px;
+}
+
+.hero-content>h1 {
+    font-size: 60px;
+    line-height: 1.1em;
+}
+
+.hero-content>p {
+    line-height: 1.4em;
+}
+
+.range-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    padding: 50px 0;
+}
+
+.range-info>h2 {
+    color: #0d3074;
+}
+
+.range-content {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-element {
+    background-color: #f7f7f7;
+    padding: 30px;
+    border-radius: 20px;
+    color: #0d3074;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.info-element>h3 {
+    font-size: 15px;
+}
+
+.info-element>img {
+    width: 60px;
+    transition: transform .3s ease;
+}
+
+.info-element:hover>img {
+    transform: scale(1.1);
+}
+
+
+
+.services {
+    position: relative;
+    background:
+        linear-gradient(to right, #091735e3 50%, #0a245780 100%),
+        url(/images/bg-alt2.jpg);
+    background-position: left;
+    padding: 100px 0;
+}
+
+.services::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    z-index: 0;
+}
+
+.services>* {
+    position: relative;
+    z-index: 1;
+}
+
+.services-txt {
+    color: #ebf5ff;
+    max-width: 800px;
+    margin: 0 auto 80px auto;
+    text-align: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.services-txt>h2 {
+    font-size: 40px;
+    /* line-height: 1em; */
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.services-txt>p {
+    font-size: 20px;
+}
+
+.services-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow-x: auto;
+    /* permite rolagem horizontal */
+    scroll-behavior: smooth;
+    /* rolagem suave */
+    scroll-snap-type: x mandatory;
+    /* encaixe nos elementos */
+    -webkit-overflow-scrolling: touch;
+    /* suporte melhor em iOS */
+    padding-bottom: 10px;
+    /* evita corte inferior no mobile */
+    padding-top: 10px;
+    max-width: 1260px;
+    margin: auto;
+    height: 600px;
+}
+
+.services-content::-webkit-scrollbar {
+    height: 8px;
+}
+
+.services-content::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.service-element {
+    flex: 0 0 auto;
+    /* impede que reduza o tamanho */
+    scroll-snap-align: start;
+    /* cada card se alinha ao início ao rolar */
+    width: 300px;
+    height: 540px;
+    border-radius: 20px;
+    padding: 230px 35px 25px 35px;
+    box-sizing: border-box;
+    background-color: #fdfcfc;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    transition: transform .3s ease;
+}
+
+.service-element>h2 {
+    font-size: 22px;
+    color: #0958d7;
+}
+
+.service-element>p {
+    color: #474747;
+}
+
+.service-element-img {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    border-radius: 20px 20px 0 0;
+}
+
+.service-element-ico {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 20px;
+    background-color: #f3f3f3;
+    padding: 8px;
+    border-radius: 50%;
+    transition: transform .3s ease;
+    z-index: 10;
+}
+
+.service-element:hover {
+    transform: translateY(-8px);
+}
+
+.service-element:hover>.service-element-ico {
+    transform: scale(1.2);
+}
+
+.service-element>a {
+    text-decoration: underline;
+    font-size: 14px;
+    color: #314469;
+    transition: .3s ease;
+}
+
+.service-element>a:hover {
+    text-decoration: underline;
+    font-size: 14px;
+    color: #07183b;
+}
+
+.services-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.scroll-btn {
+    background-color: #0958d7;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bolder;
+    transition: background-color 0.3s ease;
+
+    display: none;
+}
+
+.scroll-btn:hover {
+    background-color: #0d3074;
+}
+
+
+/* ITENS */
+.passo-a-passo-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 100px 20px;
+    display: flex;
+}
+
+.passo-a-passo-header {
+    flex: 1;
+    margin-bottom: 40px;
+    padding-left: 20px;
+    color: #07183b;
+}
+
+.passo-a-passo-header small {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.passo-a-passo-header h2 {
+    font-size: 30px;
+    line-height: 1.2em;
+    margin-bottom: 20px;
+}
+
+.passo-a-passo-header p {
+    color: #474747;
+    max-width: 500px;
+    line-height: 1.2;
+}
+
+/* Estrutura da Linha do Tempo */
+
+.timeline {
+    width: auto;
+    max-width: 600px;
+    /* Largura para a coluna da linha do tempo */
+    position: relative;
+    padding-left: 50px;
+}
+
+/* ---------------------------------- */
+/* Estilos da Linha e dos Ícones (CSS)*/
+/* ---------------------------------- */
+.timeline-item {
+    padding-bottom: 80px;
+    /* Espaçamento entre os passos */
+    position: relative;
+}
+
+/* A Linha Cinza (Fundo) */
+.timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 17px;
+    /* Posição da linha */
+    width: 4px;
+    height: 100%;
+    background-color: #dee2e6;
+    z-index: 1;
+}
+
+/* A Linha Azul (Preenchimento Progressivo) */
+.timeline-fill {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 17px;
+    /* Mesma posição da linha */
+    width: 4px;
+    height: 0;
+    /* Começa com 0 e é preenchido pelo JS */
+    background-color: #0958d7;
+    z-index: 2;
+    transition: height 0.5s ease-out;
+    /* Suaviza a animação de preenchimento */
+}
+
+/* Estilo do Círculo do Ícone */
+.timeline-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f8f9fa;
+    /* Cor de fundo padrão (branco/cinza claro) */
+    color: #495057;
+    /* Cor do ícone padrão */
+    border: 3px solid #dee2e6;
+    /* Borda padrão (cinza) */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    position: absolute;
+    top: -5px;
+    /* Ajuste para o círculo ficar centralizado com o texto */
+    left: 0;
+    z-index: 3;
+    /* Para ficar sobre a linha */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Estado Ativo/Preenchido (Azul) */
+.timeline-icon.active {
+    background-color: #0958d7;
+    /* Fundo azul */
+    color: white;
+    /* Ícone branco */
+    border-color: #0958d7;
+    /* Borda azul */
+}
+
+/* Conteúdo do Passo */
+.step-content {
+    padding-left: 60px;
+    /* Alinha o texto ao lado dos ícones */
+    margin-top: 0;
+}
+
+.step-content small {
+    display: block;
+    font-weight: bold;
+    color: #0958d7;
+    margin-bottom: 5px;
+}
+
+.step-content h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #07183b;
+}
+
+.step-content p {
+    color: #474747;
+    margin-bottom: 0;
+}
+
+.faq {
+    padding-bottom: 80px;
+}
+
+.faq-container {
+    max-width: 1000px;
+    /* Ajustei a largura para melhor visualização do grid */
+    margin: auto;
+    background-color: #f5f5f5;
+    padding: 80px;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+/* ------------------------------------- */
+/* Layout de Duas Colunas (FAQ GRID) */
+/* ------------------------------------- */
+.faq-grid {
+    display: grid;
+    /* Ajuste o valor 400px para o que for melhor para o título e 1fr para o acordeão */
+    grid-template-columns: 400px 1fr;
+    gap: 40px;
+}
+
+.faq-header {
+    padding-right: 20px;
+}
+
+.faq-header h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #07183b;
+}
+
+.faq-header p {
+    color: #474747;
+}
+
+.faq-header .help-link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #0958d7;
+}
+
+/* ------------------------------------- */
+/* Estilos do Acordeão (FAQ Content) */
+/* ------------------------------------- */
+.faq-content {
+    /* border-top: 1px solid #e9ecef; */
+    /* Linha sutil no topo do acordeão */
+}
+
+.accordion-item {
+    border-bottom: 1px solid #e9ecef;
+    /* Linha separadora para cada item */
+}
+
+.accordion-header {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 18px 0 18px 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #212529;
+    /* Cor do texto da pergunta */
+    transition: color 0.2s;
+}
+
+/* Estilo do ícone de seta */
+.arrow-icon {
+    font-size: 0.8em;
+    /* Cor #0958d7 para o ícone */
+    color: #0958d7;
+    transition: transform 0.3s ease;
+}
+
+/* Rotação da seta quando o item está expandido */
+.accordion-header[aria-expanded="true"] .arrow-icon {
+    transform: rotate(180deg);
+}
+
+/* O corpo da resposta - Esconde e mostra com JS */
+.accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.accordion-body p {
+    padding-bottom: 15px;
+    padding-top: 0;
+    margin: 0;
+    line-height: 1.2;
+    font-size: 14px;
+    color: #495057;
+}
+
+.accordion-header[aria-expanded="true"]+.accordion-body {
+    /* Este padding é adicionado apenas quando expandido */
+    max-height: 500px;
+    /* Um valor grande o suficiente para o conteúdo */
+    padding-top: 5px;
+}
+
+@media(max-width:1300px) {
+
+    .passo-a-passo-container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+    }
+
+    /* .scroll-btn {
+        display: block;
+        margin-left: 20px;
+    } */
+
+    /* .services-content {
+        margin-left: 20px;
+
+    } */
+
+    .passo-a-passo-header {
+        width: 70vw;
+    }
+
+    .passo-a-passo-header p {
+        max-width: 70vw;
+    }
+
+    .timeline {
+        width: 70vw;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        margin: 0;
+    }
+}
+
+/* Responsividade simples para telas menores */
+
+
+@media (max-width: 800px) {
+
+
+    /* .hero-section {
+        max-width: 1500px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    } */
+
+    .hero-section-wrapper {
+        padding: 20px;
+        justify-content: end;
+        align-items: center;
+        background-image:
+            linear-gradient(to top, black 0%, transparent 95%),
+            url(/images/teste2.jpg);
+        background-position: 60% 0;
+    }
+
+    .hero-content {
+        width: auto;
+        max-width: 400px;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 0 40px 0;
+    }
+
+    .hero-content>h1 {
+        font-size: 50px;
+        line-height: 1em;
+    }
+
+    .hero-content>p {
+        line-height: 1.2em;
+    }
+
+    .range-content {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .info-element {
+        width: 260px;
+    }
+
+    .scroll-btn {
+        display: none;
+    }
+
+    .services-content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .services-content {
+        -ms-overflow-style: none;
+        /* IE e Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+
+    .services-txt>h2 {
+        /* background-color: red; */
+    }
+}
+
+@media (max-width:450px) {
+    .hero-content>h1 {
+        font-size: 46px;
+        line-height: 1em;
+    }
+}

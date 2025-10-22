@@ -1,0 +1,153 @@
+.carousel-container{
+  background-color: rgb(240, 239, 239);
+}
+
+.carousel-wrapper {
+  max-width: 940px;
+  margin: 3rem auto 100px auto;
+  text-align: center;
+  position: relative;
+}
+
+.carousel-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0d3074;
+  margin-bottom: 1.5rem;
+}
+
+.carousel-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 0.5rem;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-card {
+  flex: 0 0 300px;
+  height: 300px;
+  border-radius: 20px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  /* box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); */
+  scroll-snap-align: start;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.carousel-card:hover {
+  transform: scale(1.03);
+}
+
+.carousel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2));
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.2rem;
+  border-radius: 20px;
+}
+
+.carousel-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2em;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.carousel-card-text {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: left;
+  opacity: 0.9;
+}
+
+/* --- SETAS --- */
+.carousel-controls {
+  position: absolute;
+  /* top: 50%; */
+  bottom: -80px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  /* justify-content: space-between; */
+  transform: translateY(-50%);
+  /* padding: 0 10px; */
+  pointer-events: none;
+}
+
+.scroll-btn {
+  pointer-events: all;
+  background: rgb(13, 47, 116);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: background 0.3s, transform 0.2s;
+  z-index: 2;
+  margin:0;
+}
+
+.scroll-btn:hover {
+  background: rgba(30, 72, 163, 0.95);
+  transform: scale(1.1);
+}
+
+@media(max-width: 1000px){
+    .carousel-wrapper {
+  max-width: 620px;
+}
+}
+
+@media (max-width: 800px) {
+
+    .carousel-wrapper {
+  max-width: 90vw;
+}
+  .carousel-card-title {
+    font-size: 1rem;
+  }
+
+  .carousel-card-text {
+    font-size: 0.8rem;
+  }
+
+  .carousel-controls {
+  gap: 0px;
+}
+
+  .scroll-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+}
+
+@media(max-width:691px){
+
+  .carousel-card {
+    flex: 0 0 250px;
+    height: 250px;
+  }
+
+}

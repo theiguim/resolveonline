@@ -1,0 +1,128 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 5rem;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+  border-radius: 0 0 20px 20px;
+}
+
+.logo-header{
+  margin-top: 5px;
+  width: 160px;
+}
+.logo a {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #07183b;
+  text-decoration: none;
+}
+
+.nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.nav ul li a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #07183b;
+  transition: color 0.2s;
+}
+
+.nav ul li a:hover {
+  color: #0958d7;
+}
+
+.btn {
+  background-color: #0958d7;
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn:hover {
+  background-color: #0b4ebd;
+}
+
+/* --- HAMBÚRGUER --- */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  height: 3px;
+  width: 100%;
+  background-color: #07183b;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 800px) {
+  .header{
+     padding: 1.2rem 1.5rem;
+  }
+  .nav {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  header .btn-header {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .logo-header{
+  width: 150px;
+}
+}
