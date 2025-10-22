@@ -7,6 +7,7 @@ import Carousel from "@/components/Carousel/Carousel";
 import Faq from "@/components/Faq/Faq";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
 import StepsSection from "@/components/StepsSection/StepsSection";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel/TestimonialsCarousel";
 
 export default function PixPage() {
     // --- Estados do formulário ---
@@ -304,7 +305,7 @@ export default function PixPage() {
                 )}
             </div>
 
-            
+            <TestimonialsCarousel />
             <RelatedServices />
             <Faq serviceType="pix" />
         </main>

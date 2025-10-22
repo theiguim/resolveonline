@@ -7,6 +7,7 @@ import Carousel from "@/components/Carousel/Carousel";
 import Faq from "@/components/Faq/Faq";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
 import StepsSection from "@/components/StepsSection/StepsSection";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel/TestimonialsCarousel";
 
 export default function SaudePage() {
   const [problema, setProblema] = useState("negativa");
@@ -150,7 +151,7 @@ export default function SaudePage() {
 
       <StepsSection serviceType="saude" />
 
-       <Carousel serviceType="saude" />
+      <Carousel serviceType="saude" />
 
       <div className="max-w-3xl form-card box-shadow">
         <h2 className="form-title">Simulador de Direitos - Planos de Saúde</h2>
@@ -290,6 +291,7 @@ export default function SaudePage() {
           />
         )}
       </div>
+      <TestimonialsCarousel />
       <RelatedServices />
       <Faq serviceType="saude" />
     </main>

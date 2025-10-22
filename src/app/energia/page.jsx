@@ -7,6 +7,7 @@ import Carousel from "@/components/Carousel/Carousel";
 import Faq from "@/components/Faq/Faq";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
 import StepsSection from "@/components/StepsSection/StepsSection";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel/TestimonialsCarousel";
 
 export default function EnergiaPage() {
   // ===========================
@@ -317,7 +318,7 @@ export default function EnergiaPage() {
         )}
       </div>
 
-
+      <TestimonialsCarousel />
       <RelatedServices />
       <Faq serviceType="energia" />
     </main>
