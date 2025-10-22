@@ -104,14 +104,32 @@ export default function TestimonialsCarousel() {
     };
 
     const currentTestimonials = testimonials[currentService] || [];
-    const cardWidth = 332;
+    const cardWidth = 332; // Distância de rolagem original mantida
 
     const scrollLeft = () => {
-        if (scrollRef.current) scrollRef.current.scrollBy({ left: -cardWidth, behavior: "smooth" });
+        const carousel = scrollRef.current;
+        if (!carousel) return;
+
+        const currentScroll = carousel.scrollLeft;
+        
+        // Garante que a nova posição não seja menor que 0
+        const newScroll = Math.max(0, currentScroll - cardWidth);
+
+        carousel.scrollTo({ left: newScroll, behavior: "smooth" });
     };
 
     const scrollRight = () => {
-        if (scrollRef.current) scrollRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
+        const carousel = scrollRef.current;
+        if (!carousel) return;
+
+        // Calcula a posição máxima de rolagem (conteúdo total - área visível)
+        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+        const currentScroll = carousel.scrollLeft;
+        
+        // Garante que a nova posição não ultrapasse o limite máximo
+        const newScroll = Math.min(maxScroll, currentScroll + cardWidth);
+        
+        carousel.scrollTo({ left: newScroll, behavior: "smooth" });
     };
 
     const titleMap = {
@@ -133,7 +151,6 @@ export default function TestimonialsCarousel() {
                         <div className="testimonial-card" key={i}>
                             <div className="card-header">
                                 
-
                                 {t.avatar && (
                                     <img src={t.avatar} alt={t.name} className="testimonial-avatar" />
                                 )}

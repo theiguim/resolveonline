@@ -4,12 +4,35 @@ import "./Carousel.css";
 export default function Carousel({ serviceType = "pix" }) {
   const carouselRef = useRef(null);
 
+  // Distância de rolagem original mantida
+  const SCROLL_DISTANCE = 320;
+
   const scrollLeft = () => {
-    carouselRef.current.scrollBy({ left: -320, behavior: "smooth" });
+    const carousel = carouselRef.current;
+    if (!carousel) return; // Segurança
+
+    const currentScroll = carousel.scrollLeft;
+
+    // Calcula a nova posição, garantindo que não seja menor que 0
+    const newScroll = Math.max(0, currentScroll - SCROLL_DISTANCE);
+
+    // Usa scrollTo para ir para a posição absoluta
+    carousel.scrollTo({ left: newScroll, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    carouselRef.current.scrollBy({ left: 320, behavior: "smooth" });
+    const carousel = carouselRef.current;
+    if (!carousel) return; // Segurança
+
+    // Calcula a posição máxima de rolagem (largura total - largura visível)
+    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+    const currentScroll = carousel.scrollLeft;
+
+    // Calcula a nova posição, garantindo que não ultrapasse o maxScroll
+    const newScroll = Math.min(maxScroll, currentScroll + SCROLL_DISTANCE);
+
+    // Usa scrollTo para ir para a posição absoluta
+    carousel.scrollTo({ left: newScroll, behavior: "smooth" });
   };
 
   // === Todos os slides disponíveis ===
@@ -103,37 +126,34 @@ export default function Carousel({ serviceType = "pix" }) {
   const bgColor = colorMap[serviceType.toLowerCase()] || "#0d3074";
 
   return (
-    <section className="carousel-container" >
-
+    <section className="carousel-root-container" >
       <div className="carousel-wrapper">
-      {/* <h2 className="carousel-title">Destaques {serviceType.toUpperCase()}</h2> */}
-
-      <div className="carousel-container" ref={carouselRef}>
-        {cards.map((slide, index) => (
-          <div
-            key={`${serviceType}-${index}`}
-            className="carousel-card"
-            style={{
-              backgroundColor: bgColor,
-              backgroundImage: `url('/images/carousel/${serviceType}-${index + 1}.jpg')`,
-            }}
-          >
-            <div className="carousel-overlay">
-              <h3 className="carousel-card-title">{slide.title}</h3>
-              <p className="carousel-card-text">{slide.text}</p>
+        <div className="carousel-container" ref={carouselRef}>
+          {cards.map((slide, index) => (
+            <div
+              key={`${serviceType}-${index}`}
+              className="carousel-card"
+              style={{
+                backgroundColor: bgColor,
+                backgroundImage: `url('/images/carousel/${serviceType}-${index + 1}.jpg')`,
+              }}
+            >
+              <div className="carousel-overlay">
+                <h3 className="carousel-card-title">{slide.title}</h3>
+                <p className="carousel-card-text">{slide.text}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="carousel-controls">
-        <button className="scroll-btn" onClick={scrollLeft}>
-          ←
-        </button>
-        <button className="scroll-btn" onClick={scrollRight}>
-          →
-        </button>
-      </div>
+        <div className="carousel-controls">
+          <button className="scroll-btn" onClick={scrollLeft}>
+            ←
+          </button>
+          <button className="scroll-btn" onClick={scrollRight}>
+            →
+          </button>
+        </div>
       </div>
     </section>
   );

@@ -8,6 +8,9 @@ export default function RelatedServices() {
   const scrollRef = useRef(null);
   const pathname = usePathname(); // pega a rota atual
 
+  // Distância de rolagem original mantida
+  const SCROLL_DISTANCE = 300; 
+
   // 🔎 Detecta a página atual
   const currentPage = pathname
     ?.replace("/", "")
@@ -59,60 +62,79 @@ export default function RelatedServices() {
     (s) => !currentPage.includes(s.id)
   );
 
+  // === INÍCIO DA CORREÇÃO NA ROLAGEM ===
   const scrollLeft = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    }
+    const carousel = scrollRef.current;
+    if (!carousel) return;
+
+    const currentScroll = carousel.scrollLeft;
+    
+    // Calcula a nova posição, garantindo que não seja menor que 0
+    const newScroll = Math.max(0, currentScroll - SCROLL_DISTANCE);
+
+    // Usa scrollTo para ir para a posição absoluta com efeito suave
+    carousel.scrollTo({ left: newScroll, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
-    }
+    const carousel = scrollRef.current;
+    if (!carousel) return;
+
+    // Calcula a posição máxima de rolagem (conteúdo total - área visível)
+    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+    const currentScroll = carousel.scrollLeft;
+    
+    // Calcula a nova posição, garantindo que não ultrapasse o limite máximo
+    const newScroll = Math.min(maxScroll, currentScroll + SCROLL_DISTANCE);
+    
+    // Usa scrollTo para ir para a posição absoluta com efeito suave
+    carousel.scrollTo({ left: newScroll, behavior: "smooth" });
   };
+  // === FIM DA CORREÇÃO NA ROLAGEM ===
+
 
   return (
     <section className="services-landing-content">
      <div className="services-landing" id="services">
        <h1 className="services-landing-title">Confira também:</h1>
-      <div className="services-content" ref={scrollRef}>
-        {filtered.map((service) => (
-          <div className="service-element" key={service.id}>
-            <img
-              className="service-element-ico"
-              src={service.icon}
-              alt={service.title}
-            />
-            <img
-              className="service-element-img"
-              src={service.img}
-              alt={service.title}
-            />
-            <h2>{service.title}</h2>
-            <p>{service.desc}</p>
-            <Link href={service.link}>
-              <button className="btn">{service.btn}</button>
-            </Link>
-          </div>
-        ))}
-      </div>
+       <div className="services-content" ref={scrollRef}>
+         {filtered.map((service) => (
+           <div className="service-element" key={service.id}>
+             <img
+               className="service-element-ico"
+               src={service.icon}
+               alt={service.title}
+             />
+             <img
+               className="service-element-img"
+               src={service.img}
+               alt={service.title}
+             />
+             <h2>{service.title}</h2>
+             <p>{service.desc}</p>
+             <Link href={service.link}>
+               <button className="btn">{service.btn}</button>
+             </Link>
+           </div>
+         ))}
+       </div>
 
-      <div
-        className="services-controls"
-        style={{ maxWidth: 940, margin: "0 auto", paddingLeft: 10 }}
-      >
-        <button onClick={scrollLeft} className="scroll-btn">
-          ←
-        </button>
-        <button
-          onClick={scrollRight}
-          className="scroll-btn"
-          style={{ marginLeft: 8 }}
-        >
-          →
-        </button>
+       <div
+         className="services-controls"
+         style={{ maxWidth: 940, margin: "0 auto", paddingLeft: 10 }}
+       >
+         <button onClick={scrollLeft} className="scroll-btn">
+           ←
+         </button>
+         <button
+           onClick={scrollRight}
+           className="scroll-btn"
+           style={{ marginLeft: 8 }}
+         >
+           →
+         </button>
+       </div>
       </div>
-     </div>
     </section>
   );
 }
