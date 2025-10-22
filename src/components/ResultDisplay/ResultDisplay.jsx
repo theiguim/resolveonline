@@ -60,43 +60,55 @@ export default function ResultDisplay({
         break;
 
       // ⚡ ENERGIA — atualizado
+      // ⚡ ENERGIA — atualizado com "outroProblema"
       case "energia":
         cabecalho = isUrgente
           ? "🚨 *CASO URGENTE – Interrupção de Energia* 🚨"
           : "⚡ *Análise de Problemas com Energia Elétrica (DIC/FIC)*";
+
         corpo = `
 📋 *Informações do caso de energia:*
 • *Nome:* ${leadData?.nome || "-"}
 • *WhatsApp:* ${leadData?.whats || "-"}
 • *E-mail:* ${leadData?.email || "-"}
 • *Concessionária:* ${leadData?.distribuidora || "-"}
-• *Valor médio da conta:* R$ ${leadData?.valorConta || "-"}
+• *Valor médio da conta:* R$ ${leadData?.valorMedio || "-"}
 • *Perfil de consumo:* ${leadData?.perfil || "-"}
 • *Teve devolução na fatura?* ${leadData?.teveDevolucao || "-"}
 • *Tempo sem energia:* ${leadData?.tempoSemEnergia || "-"} horas
 • *Demora na religação:* ${leadData?.tempoReligacao || "-"} dias
-• *Houve queima de aparelho?* ${leadData?.queima || "-"}
-        `;
+• *Houve queima de aparelho?* ${leadData?.aparelhoQueimado || "-"}
+• *Tipo de problema:* ${leadData?.problema || "-"}
+${leadData?.outroProblema ? `• *Descrição adicional:* ${leadData.outroProblema}` : ""}
+  `;
         break;
 
-      // 🏥 SAÚDE — atualizado
+
+      // 🏥 SAÚDE — atualizado e completo
       case "saúde":
       case "saude":
         cabecalho = isUrgente
           ? "🚨 *CASO URGENTE – Plano de Saúde* 🚨"
           : "🏥 *Simulador de Direitos em Planos de Saúde*";
+
         corpo = `
-📋 *Informações sobre o plano:*
+📋 *Informações sobre o plano de saúde:*
 • *Nome:* ${leadData?.nome || "-"}
 • *WhatsApp:* ${leadData?.whats || "-"}
 • *E-mail:* ${leadData?.email || "-"}
-• *Tipo de problema:* ${leadData?.problema || "-"}
 • *Operadora:* ${leadData?.operadora || "-"}
 • *Tipo de plano:* ${leadData?.tipoPlano || "-"}
-• *É caso de urgência/emergência?* ${leadData?.urgencia === "sim" ? "Sim 🚨" : "Não"}
-• *Possui documentos e protocolos?* ${leadData?.documentosProntos === "sim" ? "Sim 📄" : "Não"}
-        `;
+• *Tipo de problema:* ${leadData?.problema || "-"}
+${leadData?.outrosServicos ? `• *Outro tipo de problema:* ${leadData.outrosServicos}` : ""}
+• *É caso de urgência/emergência?* ${leadData?.urgencia === "sim" ? "Sim 🚨" : "Não"
+          }
+• *Possui documentos e protocolos?* ${leadData?.documentosProntos === "sim" ? "Sim 📄" : "Não"
+          }
+🧾 *Resumo automático do simulador:*
+${ctaText ? `→ ${ctaText}` : "O usuário concluiu o simulador e deseja atendimento."}
+  `;
         break;
+
 
       // 🧾 Default fallback
       default:
@@ -118,10 +130,10 @@ ${fechamento}
   };
 
   // URLs dinâmicas do WhatsApp
-  const whatsappUrl = `https://wa.me/553299526526?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/553184815969?text=${encodeURIComponent(
     gerarMensagem(false)
   )}`;
-  const urgenteUrl = `https://wa.me/553299526526?text=${encodeURIComponent(
+  const urgenteUrl = `https://wa.me/553184815969?text=${encodeURIComponent(
     gerarMensagem(true)
   )}`;
 

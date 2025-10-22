@@ -2,7 +2,6 @@
 import { useState, useRef } from "react";
 import "../../styles/FormPages.css";
 import ResultDisplay from "../../components/ResultDisplay/ResultDisplay";
-import Link from "next/link";
 import Carousel from "@/components/Carousel/Carousel";
 import Faq from "@/components/Faq/Faq";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
@@ -11,6 +10,7 @@ import TestimonialsCarousel from "@/components/TestimonialsCarousel/Testimonials
 
 export default function SaudePage() {
   const [problema, setProblema] = useState("negativa");
+  const [outrosServicos, setOutrosServicos] = useState(""); // 🆕 NOVO CAMPO
   const [urgencia, setUrgencia] = useState("");
   const [operadora, setOperadora] = useState("");
   const [tipoPlano, setTipoPlano] = useState("individual");
@@ -92,6 +92,14 @@ export default function SaudePage() {
         checklist.push("Notas fiscais e comprovantes de solicitação de reembolso.");
         break;
 
+      case "outros": // 🆕 NOVO CASO
+        content = [
+          "Seu caso será analisado individualmente pela equipe jurídica.",
+          "Descreva brevemente sua necessidade para que possamos encaminhar para o setor correto."
+        ];
+        checklist.push("Documentos e comprovantes relacionados ao caso descrito.");
+        break;
+
       default:
         content = [
           "Seu caso pode ter direito à contestação com base nas normas da ANS.",
@@ -109,7 +117,6 @@ export default function SaudePage() {
       serviceType: "Saúde"
     });
 
-    // Mostra o form de lead antes do resultado
     setMostrarLeadForm(true);
   };
 
@@ -123,6 +130,7 @@ export default function SaudePage() {
         whats,
         email,
         problema,
+        outrosServicos, // 🆕 Incluído no lead
         urgencia,
         operadora,
         tipoPlano,
@@ -131,34 +139,29 @@ export default function SaudePage() {
     }));
   };
 
-  const scrollLeft = () => scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
-  const scrollRight = () => scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
-
   // =========================
-  // Renderização visual (NÃO ALTERADA)
+  // Renderização visual
   // =========================
   return (
     <main className="page-container">
 
-      <div className="hero-sub-section" id="saude-page" >
+      <div className="hero-sub-section" id="saude-page">
         <div className="header-section">
           <h1 className="page-title">Plano de saúde negou cobertura?</h1>
           <p className="page-subtitle">
-            Seu plano <strong>não cumpriu os prazos da ANS, negou um procedimento ou aplicou um reajuste abusivo?</strong> Use nosso simulador para entender se <strong>você tem direito a contestação e quais passos seguir</strong>.
+            Seu plano <strong>não cumpriu os prazos da ANS, negou um procedimento ou aplicou um reajuste abusivo?</strong>
+            Use nosso simulador para entender se <strong>você tem direito a contestação e quais passos seguir</strong>.
           </p>
         </div>
       </div>
 
       <StepsSection serviceType="saude" />
-
       <Carousel serviceType="saude" />
 
       <div className="max-w-3xl form-card box-shadow">
         <h2 className="form-title">Simulador de Direitos - Planos de Saúde</h2>
 
-        {/* =========================
-            ETAPA 1 - FORM PRINCIPAL
-        ========================= */}
+        {/* ========================= ETAPA 1 - FORM PRINCIPAL ========================= */}
         {!mostrarLeadForm && !resultadoCalculo && (
           <form id="saude-simulator-form" onSubmit={handleSubmit}>
             <div className="form-group">
@@ -175,10 +178,25 @@ export default function SaudePage() {
                 <option value="cancelamento">Cancelamento indevido do plano</option>
                 <option value="reajuste">Aumento abusivo</option>
                 <option value="reembolso">Problemas com reembolso</option>
+                <option value="outros">Outro tipo de problema</option> {/* 🆕 */}
               </select>
             </div>
 
-            {problema === 'reajuste' && (
+            {problema === "outros" && (
+              <div className="form-group mt-3">
+                <label className="form-label">Descreva brevemente sua necessidade</label>
+                <textarea
+                  className="form-input"
+                  rows="3"
+                  placeholder="Ex: Preciso incluir dependente, contestar coparticipação, plano não cobre terapias..."
+                  value={outrosServicos}
+                  onChange={(e) => setOutrosServicos(e.target.value)}
+                  required
+                ></textarea>
+              </div>
+            )}
+
+            {problema === "reajuste" && (
               <div className="form-group mt-4">
                 <label htmlFor="saude-tipo-plano" className="form-label">Tipo de Contrato do seu Plano</label>
                 <select
@@ -195,12 +213,12 @@ export default function SaudePage() {
             )}
 
             <div className="form-group mt-4">
-              <label htmlFor="saude-operadora" className="form-label">Qual é a Operadora/Nome do Plano? <span className="text-gray-500 font-normal">(opcional)</span></label>
+              <label htmlFor="saude-operadora" className="form-label">Qual é a Operadora/Nome do Plano?</label>
               <input
                 type="text"
                 id="saude-operadora"
                 className="form-input"
-                placeholder="Ex: Unimed, SulAmérica, Bradesco Saúde"
+                placeholder="Ex: Unimed, SulAmérica, Bradesco Saúde, Outro..."
                 value={operadora}
                 onChange={(e) => setOperadora(e.target.value)}
               />
@@ -210,24 +228,16 @@ export default function SaudePage() {
               <div className="form-group">
                 <label className="form-label">O caso envolve urgência ou emergência?</label>
                 <div className="radio-group">
-                  <label>
-                    <input type="radio" name="urgencia" value="sim" checked={urgencia === "sim"} onChange={(e) => setUrgencia(e.target.value)} required /> Sim
-                  </label>
-                  <label>
-                    <input type="radio" name="urgencia" value="nao" checked={urgencia === "nao"} onChange={(e) => setUrgencia(e.target.value)} required /> Não
-                  </label>
+                  <label><input type="radio" name="urgencia" value="sim" checked={urgencia === "sim"} onChange={(e) => setUrgencia(e.target.value)} required /> Sim</label>
+                  <label><input type="radio" name="urgencia" value="nao" checked={urgencia === "nao"} onChange={(e) => setUrgencia(e.target.value)} required /> Não</label>
                 </div>
               </div>
 
               <div className="form-group">
-                <label className="form-label">Você já possui a negativa/prescrição/protocolos em mãos?</label>
+                <label className="form-label">Você já possui a negativa/prescrição/protocolos?</label>
                 <div className="radio-group">
-                  <label>
-                    <input type="radio" name="docs-prontos" value="sim" checked={documentosProntos === "sim"} onChange={(e) => setDocumentosProntos(e.target.value)} required /> Sim
-                  </label>
-                  <label>
-                    <input type="radio" name="docs-prontos" value="nao" checked={documentosProntos === "nao"} onChange={(e) => setDocumentosProntos(e.target.value)} required /> Não
-                  </label>
+                  <label><input type="radio" name="docs-prontos" value="sim" checked={documentosProntos === "sim"} onChange={(e) => setDocumentosProntos(e.target.value)} required /> Sim</label>
+                  <label><input type="radio" name="docs-prontos" value="nao" checked={documentosProntos === "nao"} onChange={(e) => setDocumentosProntos(e.target.value)} required /> Não</label>
                 </div>
               </div>
             </div>
@@ -235,13 +245,12 @@ export default function SaudePage() {
             <p className="text-sm-gray mt-4">
               Simulações relacionadas a planos de saúde seguem as normas da ANS. A plataforma não realiza atendimento jurídico direto, apenas fornece informações baseadas na regulação vigente.
             </p>
+
             <button type="submit" className="btn-submit mt-4">Ver Próximos Passos</button>
           </form>
         )}
 
-        {/* =========================
-            ETAPA 2 - FORM DE LEAD
-        ========================= */}
+        {/* ========================= ETAPA 2 - FORM DE LEAD ========================= */}
         {mostrarLeadForm && (
           <form onSubmit={handleLeadSubmit} className="mt-6">
             <h3 className="form-title">📩 Receba sua análise completa</h3>
@@ -272,9 +281,7 @@ export default function SaudePage() {
           </form>
         )}
 
-        {/* =========================
-            ETAPA 3 - RESULTADO FINAL
-        ========================= */}
+        {/* ========================= ETAPA 3 - RESULTADO FINAL ========================= */}
         {resultadoCalculo && !mostrarLeadForm && (
           <ResultDisplay
             {...resultadoCalculo}
@@ -283,6 +290,7 @@ export default function SaudePage() {
               whats,
               email,
               problema,
+              outrosServicos,
               urgencia,
               operadora,
               tipoPlano,
@@ -291,6 +299,7 @@ export default function SaudePage() {
           />
         )}
       </div>
+
       <TestimonialsCarousel />
       <RelatedServices />
       <Faq serviceType="saude" />

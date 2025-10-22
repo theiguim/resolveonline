@@ -14,6 +14,7 @@ export default function EnergiaPage() {
   // 🧩 Estados principais
   // ===========================
   const [problema, setProblema] = useState("conta_alta");
+  const [outroProblema, setOutroProblema] = useState(""); // 🔧 NOVO
   const [perfil, setPerfil] = useState("residencial");
   const [distribuidora, setDistribuidora] = useState("");
   const [valorMedio, setValorMedio] = useState("");
@@ -23,7 +24,6 @@ export default function EnergiaPage() {
   const [tempoReligacao, setTempoReligacao] = useState("");
   const [resultadoCalculo, setResultadoCalculo] = useState(null);
 
-  // Etapa de coleta de lead
   const [nome, setNome] = useState("");
   const [whats, setWhats] = useState("");
   const [email, setEmail] = useState("");
@@ -65,6 +65,12 @@ export default function EnergiaPage() {
         analise.push("O prazo máximo para religação é de até 24h (zona urbana) ou 48h (rural).");
         analise.push("Caso o prazo tenha sido ultrapassado, o consumidor tem direito à compensação.");
         break;
+      case "outro": // 🔧 NOVO
+        analise.push("Podemos avaliar se houve falha na prestação de serviço e se há valores a restituir.");
+        if (outroProblema.trim()) {
+          analise.push(`Descrição informada: "${outroProblema}".`);
+        }
+        break;
       default:
         analise.push("Podemos avaliar se houve falha na prestação de serviço e se há valores a restituir.");
         break;
@@ -92,10 +98,12 @@ export default function EnergiaPage() {
     setResultadoCalculo((prev) => ({
       ...prev,
       leadData: {
+        ...(prev.leadData || {}), // ✅ garante merge com o que já existe
         nome,
         whats,
         email,
         problema,
+        outroProblema, // ✅ garante envio correto
         perfil,
         distribuidora,
         valorMedio,
@@ -106,12 +114,6 @@ export default function EnergiaPage() {
       },
     }));
   };
-
-  // ===========================
-  // 🔄 Scroll
-  // ===========================
-  const scrollLeft = () => scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
-  const scrollRight = () => scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
 
   // ===========================
   // 🧱 Renderização
@@ -153,6 +155,21 @@ export default function EnergiaPage() {
               </select>
             </div>
 
+            {/* 🔧 Campo condicional - descrição do outro problema */}
+            {problema === "outro" && (
+              <div className="form-group mt-3 fade-in">
+                <label className="form-label">Descreva brevemente o problema</label>
+                <textarea
+                  className="form-input"
+                  rows={3}
+                  placeholder="Ex: A energia cai sempre que chove, ou demora dias para voltar..."
+                  value={outroProblema}
+                  onChange={(e) => setOutroProblema(e.target.value)}
+                  required
+                />
+              </div>
+            )}
+
             <div className="form-group mt-4">
               <label className="form-label">Qual seu perfil de consumo?</label>
               <select
@@ -173,7 +190,7 @@ export default function EnergiaPage() {
               <input
                 type="text"
                 className="form-input"
-                placeholder="Ex: Enel, CPFL, Light..."
+                placeholder="Ex: Enel, CPFL, Light, Outra (Digite o nome da concessionária)..."
                 value={distribuidora}
                 onChange={(e) => setDistribuidora(e.target.value)}
                 required
@@ -306,6 +323,7 @@ export default function EnergiaPage() {
               whats,
               email,
               problema,
+              outroProblema, // 🔧 Adicione esta linha
               perfil,
               distribuidora,
               valorMedio,
