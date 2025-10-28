@@ -1,13 +1,15 @@
 'use client';
 import { useState, useRef } from "react";
-import "../../styles/FormPages.css";
-import ResultDisplay from "../../components/ResultDisplay/ResultDisplay";
+import "../../../styles/FormPages.css";
+import ResultDisplay from "../../../components/ResultDisplay/ResultDisplay";
 import Link from "next/link";
 import Carousel from "@/components/Carousel/Carousel";
 import Faq from "@/components/Faq/Faq";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
 import StepsSection from "@/components/StepsSection/StepsSection";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel/TestimonialsCarousel";
+import { submitForm } from "../actions/formActions";
+
 
 export default function EnergiaPage() {
   // ===========================
@@ -23,6 +25,8 @@ export default function EnergiaPage() {
   const [tempoSemEnergia, setTempoSemEnergia] = useState("");
   const [tempoReligacao, setTempoReligacao] = useState("");
   const [resultadoCalculo, setResultadoCalculo] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const [nome, setNome] = useState("");
   const [whats, setWhats] = useState("");
@@ -91,28 +95,50 @@ export default function EnergiaPage() {
   // ===========================
   // 🧾 Etapa de lead
   // ===========================
-  const handleLeadSubmit = (e) => {
+  const handleLeadSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
 
+    // 1. Monta o objeto com todos os dados
+    const leadData = {
+    nome,
+    whats,
+    email,
+    problema,
+    outroProblema,
+    perfil,
+    distribuidora,
+    valorMedio,
+    teveDevolucao,
+    aparelhoQueimado,
+    tempoSemEnergia,
+    tempoReligacao,
+    };
+
+    try {
+    // 2. Chama a Server Action
+    const { success, error } = await submitForm('energia', leadData);
+
+    if (error) {
+      throw new Error(error);
+    }
+
+    // 3. Se deu certo, continua o fluxo
     setMostrarLeadForm(false);
     setResultadoCalculo((prev) => ({
       ...prev,
-      leadData: {
-        ...(prev.leadData || {}), // ✅ garante merge com o que já existe
-        nome,
-        whats,
-        email,
-        problema,
-        outroProblema, // ✅ garante envio correto
-        perfil,
-        distribuidora,
-        valorMedio,
-        teveDevolucao,
-        aparelhoQueimado,
-        tempoSemEnergia,
-        tempoReligacao,
-      },
+      leadData: leadData,
     }));
+
+    } catch (error) {
+    // 4. Se deu erro
+    console.error("Falha ao enviar formulário de energia:", error.message);
+    setSubmitError("Houve um erro ao enviar seus dados. Tente novamente, por favor.");
+    } finally {
+    // 5. Para o loading
+    setIsSubmitting(false);
+    }
   };
 
   // ===========================
@@ -310,7 +336,19 @@ export default function EnergiaPage() {
               🔒 Seus dados estão protegidos e serão usados apenas para envio da análise e contato sobre seus direitos.
             </div>
 
-            <button type="submit" className="btn-submit mt-4">Ver meu resultado agora</button>
+            {submitError && (
+            <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
+              {submitError}
+            </div>
+            )}
+
+            <button
+            type="submit"
+            className="btn-submit mt-4"
+            disabled={isSubmitting}
+            >
+            {isSubmitting ? "Enviando..." : "Ver meu resultado agora"}
+            </button>
           </form>
         )}
 

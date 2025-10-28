@@ -1,12 +1,13 @@
 'use client';
 import { useState, useRef } from "react";
-import "../../styles/FormPages.css";
-import ResultDisplay from "../../components/ResultDisplay/ResultDisplay";
+import "../../../styles/FormPages.css";
+import ResultDisplay from "../../../components/ResultDisplay/ResultDisplay";
 import Carousel from "@/components/Carousel/Carousel";
 import Faq from "@/components/Faq/Faq";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
 import StepsSection from "@/components/StepsSection/StepsSection";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel/TestimonialsCarousel";
+import { submitForm } from "../actions/formActions";
 
 export default function SaudePage() {
   const [problema, setProblema] = useState("negativa");
@@ -21,6 +22,8 @@ export default function SaudePage() {
   const [whats, setWhats] = useState("");
   const [email, setEmail] = useState("");
   const [mostrarLeadForm, setMostrarLeadForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const [resultadoCalculo, setResultadoCalculo] = useState(null);
   const scrollRef = useRef(null);
@@ -120,23 +123,47 @@ export default function SaudePage() {
     setMostrarLeadForm(true);
   };
 
-  const handleLeadSubmit = (e) => {
+  const handleLeadSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    // 1. Monta o objeto com todos os dados
+    const leadData = {
+    nome,
+    whats,
+    email,
+    problema,
+    outrosServicos,
+    urgencia,
+    operadora,
+    tipoPlano,
+    documentosProntos
+    };
+
+    try {
+    // 2. Chama a Server Action
+    const { success, error } = await submitForm('saude', leadData);
+
+    if (error) {
+      throw new Error(error);
+    }
+
+    // 3. Se deu certo, continua o fluxo
     setMostrarLeadForm(false);
     setResultadoCalculo((prev) => ({
       ...prev,
-      leadData: {
-        nome,
-        whats,
-        email,
-        problema,
-        outrosServicos, // 🆕 Incluído no lead
-        urgencia,
-        operadora,
-        tipoPlano,
-        documentosProntos
-      },
+      leadData: leadData,
     }));
+
+    } catch (error) {
+    // 4. Se deu erro
+    console.error("Falha ao enviar formulário de saúde:", error.message);
+    setSubmitError("Houve um erro ao enviar seus dados. Tente novamente, por favor.");
+    } finally {
+    // 5. Para o loading
+    setIsSubmitting(false);
+    }
   };
 
   // =========================
@@ -277,7 +304,19 @@ export default function SaudePage() {
               🔒 Seus dados são protegidos. Usamos apenas para te ajudar a resolver o problema com seu plano de saúde.
             </p>
 
-            <button type="submit" className="btn-submit mt-4">Ver Resultado</button>
+            {submitError && (
+            <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
+              {submitError}
+            </div>
+            )}
+
+            <button
+            type="submit"
+            className="btn-submit mt-4"
+            disabled={isSubmitting}
+            >
+            {isSubmitting ? "Enviando..." : "Ver Resultado"}
+            </button>
           </form>
         )}
 

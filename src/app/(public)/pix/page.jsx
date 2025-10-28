@@ -1,13 +1,15 @@
 'use client';
 import { useState, useRef } from "react";
-import "../../styles/FormPages.css";
-import ResultDisplay from "../../components/ResultDisplay/ResultDisplay";
+import "../../../styles/FormPages.css";
+import ResultDisplay from "../../../components/ResultDisplay/ResultDisplay";
 import Link from "next/link";
 import Carousel from "@/components/Carousel/Carousel";
 import Faq from "@/components/Faq/Faq";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
 import StepsSection from "@/components/StepsSection/StepsSection";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel/TestimonialsCarousel";
+import { submitForm } from "../actions/formActions";
+
 
 export default function PixPage() {
     // --- Estados do formulário ---
@@ -21,6 +23,9 @@ export default function PixPage() {
     const [erroTipo, setErroTipo] = useState("");
     const [resultadoCalculo, setResultadoCalculo] = useState(null);
     const [leadStep, setLeadStep] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formError, setFormError] = useState(null); 
+    const [submitError, setSubmitError] = useState(null);
 
     // --- Campos do lead ---
     const [nome, setNome] = useState("");
@@ -53,6 +58,8 @@ export default function PixPage() {
     // --- Submissão do lead ---
     const handleLeadSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitError(null);
 
         const transacao = new Date(dataTransacao);
         const hoje = new Date();
@@ -101,27 +108,54 @@ export default function PixPage() {
             ];
         }
 
-        await fetch("/api/sendLead", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome, whats, email, valor, fraudeTipo, tentouResolver, erroTipo }),
-        });
+        const leadData = {
+            nome,
+            whats,
+            email,
+            valor,
+            dataTransacao,
+            fraudeTipo,
+            chavePix, // Campo já existia no estado
+            idPix, // Campo já existia no estado
+            bancoPagador, // Campo já existia no estado
+            tentouResolver,
+            erroTipo,
+            };
 
-        setResultadoCalculo({
-            title,
-            content,
-            checklist,
-            disclaimer,
-            ctaText,
-            serviceType: "PIX",
-            extraMessage:
+            // 2. Tenta enviar para o Supabase
+            try {
+            // Substitui o fetch()
+            const { success, error } = await submitForm('pix', leadData);
+
+            if (error) {
+                throw new Error(error);
+            }
+
+            // 3. Se deu certo, continua o fluxo normal
+            setResultadoCalculo({
+                title,
+                content,
+                checklist,
+                disclaimer,
+                ctaText,
+                serviceType: "PIX",
+                extraMessage:
                 erroTipo === "Digitei errado por conta própria"
                     ? "🔍 Parece ter sido um erro humano. Ainda assim, verifique se o banco pode ajudar e mantenha o comprovante da transação."
                     : "💡 Casos de golpe com indução ao erro podem ter maior chance de recuperação se o MED for aberto dentro de 80 dias.",
-        });
+            });
 
-        setLeadStep(false);
-    };
+            setLeadStep(false);
+
+            } catch (error) {
+            // 4. Se deu erro no envio
+            console.error("Falha ao enviar formulário PIX:", error.message);
+            setSubmitError("Houve um erro ao enviar seus dados. Tente novamente, por favor.");
+            } finally {
+            // 5. Para o loading
+            setIsSubmitting(false);
+            }
+        };
 
     // --- Ações de botões auxiliares ---
     const handleUrgenteClick = () => {
@@ -229,6 +263,11 @@ export default function PixPage() {
                         <p className="text-sm-gray mt-4">
                             Esta é uma análise prévia. A devolução depende da resposta do banco e do Banco Central.
                         </p>
+                        {formError && (
+                        <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
+                            {formError}
+                        </div>
+                        )}
 
                         <button type="submit" className="btn-submit mt-4">
                             Ver meu resultado
@@ -261,8 +300,18 @@ export default function PixPage() {
                             🔒 Seus dados estão seguros. Usamos suas informações apenas para essa análise e para te ajudar a exercer seus direitos como consumidor.
                         </p>
 
-                        <button type="submit" className="btn-submit mt-4">
-                            Receber Resultado
+                        {submitError && (
+                        <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
+                            {submitError}
+                        </div>
+                        )}
+
+                        <button
+                        type="submit"
+                        className="btn-submit mt-4"
+                        disabled={isSubmitting}
+                        >
+                        {isSubmitting ? "Enviando..." : "Receber Resultado"}
                         </button>
                     </form>
                 )}

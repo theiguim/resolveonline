@@ -1,5 +1,5 @@
 // /pages/politica-de-privacidade.jsx ou /app/politica-de-privacidade/page.jsx
-import "../../styles/FormPages.css";
+import "../../../styles/FormPages.css";
 
 const PoliticaDePrivacidadePage = () => {
   return (

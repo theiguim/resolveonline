@@ -1,17 +1,44 @@
 'use client';
 import { useState } from "react";
-import "../../styles/FormPages.css";
+import "../../../styles/FormPages.css";
+import { submitForm } from "../actions/formActions";
 
 export default function ContatoPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aqui você pode integrar com API ou backend
+    setIsSubmitting(true);
+    setSubmitError(null);
+      setSubmitted(false); // Reseta o sucesso caso tente de novo
+
+    const leadData = { name, email, message };
+
+    try {
+    const { success, error } = await submitForm('contato', leadData);
+
+    if (error) {
+      throw new Error(error);
+    }
+
+    // Sucesso
     setSubmitted(true);
+        // Limpa o formulário
+        setName("");
+        setEmail("");
+        setMessage("");
+
+    } catch (error) {
+    console.error("Falha ao enviar formulário de contato:", error.message);
+    setSubmitError("Houve um erro ao enviar sua mensagem. Tente novamente.");
+    } finally {
+    setIsSubmitting(false);
+    }
   };
 
   return (
@@ -56,7 +83,19 @@ export default function ContatoPage() {
             ></textarea>
           </div>
 
-          <button type="submit" className="btn-submit btn-blue">Enviar Mensagem</button>
+          {submitError && (
+            <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
+            {submitError}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="btn-submit btn-blue"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
+          </button>
         </form>
 
         {submitted && (

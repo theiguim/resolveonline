@@ -1,0 +1,142 @@
+/* app/(portal)/login/login.css */
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url('/images/login-background.jpg'); 
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+} 
+
+.login-card {
+  background-color: rgba(255, 255, 255, 0.95); /* Fundo branco semi-transparente */
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  backdrop-filter: blur(5px); /* Efeito de blur no fundo do card */
+}
+
+.logo-container {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.login-title {
+  font-size: 2.2rem;
+  color: #0d3074; /* hard-blue */
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.login-subtitle {
+  font-size: 1rem;
+  color: #474747; /* Cor de texto padrão */
+  margin-bottom: 30px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #0d3074; /* hard-blue */
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Garante que padding não aumente a largura */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #0958d7; /* medium-blue */
+  box-shadow: 0 0 0 3px rgba(9, 88, 215, 0.2);
+  outline: none;
+}
+
+.password-group {
+  position: relative;
+}
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  cursor: pointer;
+  color: #6c757d; /* Cor do ícone */
+  transition: color 0.2s ease;
+}
+
+.password-toggle-icon:hover {
+  color: #0958d7; /* medium-blue */
+}
+
+.password-toggle-icon svg {
+    width: 20px; /* Tamanho do ícone */
+    height: 20px;
+}
+
+.error-message {
+  color: #dc3545; /* Cor de erro */
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.login-button {
+  background: linear-gradient(135deg, #0d3074, #0958d7); /* Seu gradiente hard-blue para medium-blue */
+  border: none;
+  padding: 15px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: .3s ease;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.login-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0958d7, #0d3074);
+  transform: scale(1.01);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background: #cccccc; /* Cor de fundo para botão desabilitado */
+}

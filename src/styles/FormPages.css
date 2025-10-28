@@ -184,6 +184,7 @@ text-align: center;
     padding: 0.75rem 1rem;
     transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
+    color: #061024;
 }
 
 .form-input:focus {

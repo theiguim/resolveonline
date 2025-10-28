@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react";
-import "../../styles/FormPages.css";
+import "../../../styles/FormPages.css";
 import Link from "next/link";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
 

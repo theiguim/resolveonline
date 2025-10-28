@@ -1,24 +1,20 @@
-import { Inter } from 'next/font/google';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
-import './globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
+// src/app/layout.jsx
+import './globals.css'; // Importa estilos base e Tailwind
 
 export const metadata = {
   title: 'Resolve Online',
   description: 'Defesa do consumidor simplificada',
 };
 
+/*
+ * Layout raiz do Next.js — engloba tudo (admin, público, etc.)
+ * NÃO deve conter Header/Footer nem fontes específicas.
+ */
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR">
-      <body className={inter.className}>
-        <a href="https://wa.me/553184815969?text=Ol%C3%A1,%20eu%20gostaria%20de%20conhecer%20melhor%20a%20Resolve%20Online."
-          target="_blank"><img className="wpp-fixed" src="/images/wpp-fixed.png" alt="whatsapp link" /></a>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+    <html lang="pt-BR" suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true}>
+        {children}
       </body>
     </html>
   );

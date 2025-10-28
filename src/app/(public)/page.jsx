@@ -1,7 +1,7 @@
 'use client';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useEffect, useRef, useState } from 'react';
-import "./../styles/Landing.css";
+import "../../styles/Landing.css";
 import Link from 'next/link';
 import Carousel from '@/components/Carousel/Carousel';
 import Faq from '@/components/Faq/Faq';

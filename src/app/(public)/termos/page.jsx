@@ -1,5 +1,5 @@
 // /pages/termos-de-uso.jsx ou /app/termos-de-uso/page.jsx
-import "../../styles/FormPages.css";
+import "../../../styles/FormPages.css";
 
 const TermosDeUsoPage = () => {
   return (

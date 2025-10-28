@@ -1,13 +1,14 @@
 'use client';
 import { useState, useRef } from "react";
-import "../../styles/FormPages.css";
-import ResultDisplay from "../../components/ResultDisplay/ResultDisplay";
+import "../../../styles/FormPages.css";
+import ResultDisplay from "../../../components/ResultDisplay/ResultDisplay";
 import Link from "next/link";
 import Carousel from "@/components/Carousel/Carousel";
 import Faq from "@/components/Faq/Faq";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
 import StepsSection from "@/components/StepsSection/StepsSection";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel/TestimonialsCarousel";
+import { submitForm } from "../actions/formActions";
 
 export default function AereoPage() {
     // ===========================
@@ -25,6 +26,8 @@ export default function AereoPage() {
     const [whats, setWhats] = useState("");
     const [email, setEmail] = useState("");
     const [mostrarLeadForm, setMostrarLeadForm] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState(null);
 
     const scrollRef = useRef(null);
 
@@ -97,22 +100,46 @@ export default function AereoPage() {
     // ===========================
     // 📩 Envio de dados do lead
     // ===========================
-    const handleLeadSubmit = (e) => {
+    const handleLeadSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitError(null);
 
+        // 1. Monta o objeto com todos os dados
+        const leadData = {
+        nome,
+        whats,
+        email,
+        problema,
+        escopo,
+        horas,
+        pernoite,
+        despesas,
+        };
+
+        try {
+        // 2. Chama a Server Action
+        const { success, error } = await submitForm('aereo', leadData);
+
+        if (error) {
+            throw new Error(error);
+        }
+
+        // 3. Se deu certo, continua o fluxo
         setMostrarLeadForm(false);
         setResultadoCalculo((prev) => ({
             ...prev,
-            leadData: {
-                nome,
-                whats,
-                email,
-                problema,
-                horas,
-                pernoite,
-                despesas,
-            },
+            leadData: leadData,
         }));
+
+        } catch (error) {
+        // 4. Se deu erro
+        console.error("Falha ao enviar formulário:", error.message);
+        setSubmitError("Houve um erro ao enviar seus dados. Tente novamente, por favor.");
+        } finally {
+        // 5. Para o loading
+        setIsSubmitting(false);
+        }
     };
 
     // ===========================
@@ -261,8 +288,20 @@ export default function AereoPage() {
                             🔒 Seus dados estão seguros. Usamos suas informações apenas para esta análise e para te ajudar a exercer seus direitos.
                         </div>
 
-                        <button type="submit" className="btn-submit mt-4">Ver meu resultado agora</button>
-                    </form>
+                        {submitError && (
+              <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
+                {submitError}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="btn-submit mt-4"
+              disabled={isSubmitting} // Desabilita enquanto envia
+            >
+              {isSubmitting ? "Enviando..." : "Ver meu resultado agora"}
+            </button>
+          </form>
                 )}
 
                 {/* RESULTADO FINAL */}
