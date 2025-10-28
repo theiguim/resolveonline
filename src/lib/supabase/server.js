@@ -1,40 +1,34 @@
 // src/lib/supabase/server.js
-// ESTE ARQUIVO É SEGURO PARA O SERVIDOR (E SÓ PARA O SERVIDOR)
-
 import { createServerClient } from '@supabase/ssr';
-// ✅ Mantenha este import, pois suas páginas e actions vão usá-lo
-import { cookies } from 'next/headers'; 
 
-// ✅ CORREÇÃO: A função agora ACEITA o cookieStore como argumento
+// ✅ Aceita o cookieStore como argumento
 export const createServer = (cookieStore) => {
- 
- // ❌ A linha "const cookieStore = cookies()" foi REMOVIDA daqui.
+  // 🔒 Usa variáveis seguras no ambiente do servidor
+  const supabaseUrl =
+    process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const supabaseAnonKey =
+    process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
- // Cria o cliente Supabase para o servidor
- return createServerClient(
-  process.env.PUBLIC_SUPABASE_URL,
-  process.env.PUBLIC_SUPABASE_ANON_KEY,
-  {
-   cookies: {
-    get(name) {
-     // Usa o cookieStore que foi passado como argumento
-     return cookieStore.get(name)?.value;
-    },
-    set(name, value, options) {
-     try {
-      cookieStore.set({ name, value, ...options });
-     } catch (error) {
-      // Ignora erros (esperado em Server Actions)
-     }
-    },
-    remove(name, options) {
-     try {
-      cookieStore.set({ name, value: '', ...options });
-     } catch (error) {
-      // Ignora erros (esperado em Server Actions)
-     }
-    },
-   },
+  // ⚠️ Log de fallback — útil para detectar se as variáveis estão faltando no build
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.warn('⚠️ Variáveis do Supabase ausentes no build (SUPABASE_URL/ANON_KEY).');
   }
- );
+
+  return createServerClient(supabaseUrl, supabaseAnonKey, {
+    cookies: {
+      get(name) {
+        return cookieStore.get(name)?.value;
+      },
+      set(name, value, options) {
+        try {
+          cookieStore.set({ name, value, ...options });
+        } catch (_) {}
+      },
+      remove(name, options) {
+        try {
+          cookieStore.set({ name, value: '', ...options });
+        } catch (_) {}
+      },
+    },
+  });
 };
