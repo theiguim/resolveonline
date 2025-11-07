@@ -1,6 +1,5 @@
 'use client';
-
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'; // CRÍTICO: Solução para o erro de Prerendering/SSR no fetch
 
 import { useState, useRef } from "react";
 import "../../../styles/FormPages.css";
