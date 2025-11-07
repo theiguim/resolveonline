@@ -1,4 +1,5 @@
 'use client';
+
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useEffect, useRef, useState } from 'react';
 import "../../styles/Landing.css";

@@ -1,4 +1,7 @@
 'use client';
+
+export const dynamic = 'force-dynamic';
+
 import { useState, useRef } from "react";
 import "../../../styles/FormPages.css";
 import ResultDisplay from "../../../components/ResultDisplay/ResultDisplay";
