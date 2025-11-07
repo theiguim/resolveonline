@@ -6,13 +6,38 @@ import Link from 'next/link';
 import Carousel from '@/components/Carousel/Carousel';
 import Faq from '@/components/Faq/Faq';
 
+// NOVO: Importa o hook e as ferramentas de navegação
+import { useUtmParams } from '@/hooks/useUtmParams';
+
 export default function Home() {
+  // LÊ OS PARÂMETROS UTM DA URL (Ponto 5)
+  const utmParams = useUtmParams();
 
   useEffect(() => {
-    // ---------- TIMELINE ----------
+    // --- NOVO: Persistência de UTMs na primeira visita ---
+    // Checa se há novos UTMs na URL E se o navegador suporta sessionStorage
+    if (Object.keys(utmParams).length > 0 && typeof window !== 'undefined') {
+      // CRÍTICO: Salva os UTMs no sessionStorage para que os formulários possam lê-los depois
+      // Isso garante que, mesmo se o usuário navegar para /pix, os UTMs originais sejam lembrados.
+      sessionStorage.setItem('resolved_utms', JSON.stringify(utmParams));
+
+      // Opcional: Se houver script GTM base, você pode dar um sinal de visita
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'homepage_visit_with_utm',
+          ...utmParams
+        });
+      }
+    }
+    // --- FIM DA PERSISTÊNCIA ---
+
+
+    // ---------- TIMELINE E FAQ (Lógica original mantida) ----------
     const timeline = document.getElementById('timeline');
     const fillBar = document.getElementById('timeline-fill');
     const items = document.querySelectorAll('.timeline-item');
+
+    // ... (resto da lógica de updateTimeline, FAQ Accordion, e Cleanup) ...
 
     function updateTimeline() {
       if (!timeline) return;
@@ -78,7 +103,7 @@ export default function Home() {
       window.removeEventListener('resize', updateTimeline);
       if (accordion) accordion.replaceWith(accordion.cloneNode(true)); // remove os event listeners
     };
-  }, []);
+  }, [utmParams]); // CRÍTICO: Roda o efeito quando os UTMs mudam (embora raramente aconteça na home)
 
   // ---------- ServiceScroll ----------
 
@@ -95,7 +120,6 @@ export default function Home() {
       scrollRef.current.scrollBy({ left: 300, behavior: 'smooth' });
     }
   };
-
 
   return (
     <main className="main-page">

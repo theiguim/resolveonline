@@ -2,29 +2,39 @@
 import { useState, useRef } from "react";
 import "../../../styles/FormPages.css";
 import ResultDisplay from "../../../components/ResultDisplay/ResultDisplay";
+
+// Componentes de Layout (Importações originais mantidas)
 import Link from "next/link";
 import Carousel from "@/components/Carousel/Carousel";
 import Faq from "@/components/Faq/Faq";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
 import StepsSection from "@/components/StepsSection/StepsSection";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel/TestimonialsCarousel";
-import { submitForm } from "../actions/formActions";
-
+import { useUtmParams } from '@/hooks/useUtmParams'; // <-- HOOK DE UTMs
 
 export default function PixPage() {
+
+    // LÊ OS PARÂMETROS UTM DA URL (Ponto 5)
+    const utmParams = useUtmParams();
+
     // --- Estados do formulário ---
     const [valor, setValor] = useState("");
     const [dataTransacao, setDataTransacao] = useState("");
     const [fraudeTipo, setFraudeTipo] = useState("Golpe do Falso Parente/Amigo");
+
+    // Campos de qualificação (opcionais para reduzir fricção)
     const [chavePix, setChavePix] = useState("");
     const [idPix, setIdPix] = useState("");
     const [bancoPagador, setBancoPagador] = useState("");
+
+    // Novos campos de qualificação
     const [tentouResolver, setTentouResolver] = useState("");
     const [erroTipo, setErroTipo] = useState("");
+
     const [resultadoCalculo, setResultadoCalculo] = useState(null);
-    const [leadStep, setLeadStep] = useState(false);
+    const [leadStep, setLeadStep] = useState(false); // true: Exibe formulário de lead
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [formError, setFormError] = useState(null); 
+    const [formError, setFormError] = useState(null);
     const [submitError, setSubmitError] = useState(null);
 
     // --- Campos do lead ---
@@ -32,132 +42,97 @@ export default function PixPage() {
     const [whats, setWhats] = useState("");
     const [email, setEmail] = useState("");
 
-    // --- Upload e popup ---
+    // --- Upload e popup (Mantidos) ---
     const [mostrarUpload, setMostrarUpload] = useState(false);
     const [arquivo, setArquivo] = useState(null);
 
-    // --- Scroll refs ---
+    // --- Scroll refs (Mantidos) ---
     const scrollRef = useRef(null);
-    const scrollLeft = () => {
-        if (scrollRef.current) scrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    };
-    const scrollRight = () => {
-        if (scrollRef.current) scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
-    };
+    const scrollLeft = () => { if (scrollRef.current) scrollRef.current.scrollBy({ left: -300, behavior: "smooth" }); };
+    const scrollRight = () => { if (scrollRef.current) scrollRef.current.scrollBy({ left: 300, behavior: "smooth" }); };
 
-    // --- Submissão inicial do simulador ---
+    // --- Submissão inicial do simulador (1ª Etapa: Qualificação) ---
     const handleSubmit = (e) => {
         e.preventDefault();
+        setFormError(null);
         if (!dataTransacao) {
-            alert("Por favor, preencha a data da transação.");
+            setFormError("Por favor, preencha a data da transação para calcular o prazo.");
             return;
         }
-        setLeadStep(true); // ativa tela de captura
+        // Move para a tela de captura de lead
+        setLeadStep(true);
     };
 
-    // --- Submissão do lead ---
+    // --- Submissão do lead (2ª Etapa: Captura -> Envio para API) ---
     const handleLeadSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         setSubmitError(null);
 
-        const transacao = new Date(dataTransacao);
-        const hoje = new Date();
-        const diffDays = Math.floor(Math.abs(hoje - transacao) / (1000 * 60 * 60 * 24));
-
-        let title, content, checklist, ctaText;
-        const disclaimer =
-            "Esta é uma análise prévia. A confirmação da viabilidade dependerá de avaliação jurídica mais detalhada.";
-
-        const msgBase = {
-            "Golpe do Falso Parente/Amigo":
-                "⚠️ Golpe comum de engenharia social. Caso tenha sido induzido ao erro, registre um B.O. e contate o banco solicitando abertura de MED.",
-            "Falso Leilão/Venda":
-                "Esse tipo de golpe envolve anúncios falsos. Guarde prints da negociação e registre o ocorrido.",
-            "Phishing (Link Falso)":
-                "Você pode ter clicado em link falso. Se houve acesso indevido, altere senhas e comunique o banco.",
-            "Engenharia Social":
-                "Golpe baseado em manipulação emocional. Sempre registre protocolo e B.O. para reforçar seu caso.",
-            Outro: "Situação atípica. Nossa equipe pode avaliar a melhor estratégia conforme o contexto.",
-        };
-
-        if (diffDays <= 80) {
-            title = "Boa notícia! Você está dentro do prazo.";
-            ctaText = "Continuar para Atendimento";
-            content = [
-                msgBase[fraudeTipo],
-                `Sua transação ocorreu há ${diffDays} dias — dentro do prazo de 80 dias para o MED.`,
-                "Aja rápido: registre contestação com o banco e boletim de ocorrência.",
-            ];
-            checklist = [
-                "Comprovante do PIX (E2E visível)",
-                "B.O. e protocolo do banco",
-                "Prints ou mensagens da negociação",
-            ];
-        } else {
-            title = "Atenção: Prazo formal expirado.";
-            ctaText = "Falar com especialista em alternativas";
-            content = [
-                msgBase[fraudeTipo],
-                `A transação tem ${diffDays} dias — o prazo para o MED expirou, mas outras medidas são possíveis.`,
-            ];
-            checklist = [
-                "Comprovante do PIX",
-                "Documentos de identificação",
-                "Provas de falha bancária, se houver",
-            ];
-        }
-
+        // 1. Coleta TODOS os dados do formulário (Simulador + Lead + UTMs)
         const leadData = {
+            serviceType: 'pix', 
             nome,
             whats,
             email,
-            valor,
+            valor: parseFloat(valor), 
             dataTransacao,
             fraudeTipo,
-            chavePix, // Campo já existia no estado
-            idPix, // Campo já existia no estado
-            bancoPagador, // Campo já existia no estado
+            chavePix,
+            idPix,
+            bancoPagador,
             tentouResolver,
             erroTipo,
-            };
-
-            // 2. Tenta enviar para o Supabase
-            try {
-            // Substitui o fetch()
-            const { success, error } = await submitForm('pix', leadData);
-
-            if (error) {
-                throw new Error(error);
-            }
-
-            // 3. Se deu certo, continua o fluxo normal
-            setResultadoCalculo({
-                title,
-                content,
-                checklist,
-                disclaimer,
-                ctaText,
-                serviceType: "PIX",
-                extraMessage:
-                erroTipo === "Digitei errado por conta própria"
-                    ? "🔍 Parece ter sido um erro humano. Ainda assim, verifique se o banco pode ajudar e mantenha o comprovante da transação."
-                    : "💡 Casos de golpe com indução ao erro podem ter maior chance de recuperação se o MED for aberto dentro de 80 dias.",
-            });
-
-            setLeadStep(false);
-
-            } catch (error) {
-            // 4. Se deu erro no envio
-            console.error("Falha ao enviar formulário PIX:", error.message);
-            setSubmitError("Houve um erro ao enviar seus dados. Tente novamente, por favor.");
-            } finally {
-            // 5. Para o loading
-            setIsSubmitting(false);
-            }
+            ...utmParams, // <-- PONTO 5: INCLUI OS UTMS NO PAYLOAD DA API
         };
 
-    // --- Ações de botões auxiliares ---
+        try {
+            // 2. Tenta enviar para a API Route
+            const response = await fetch('/api/submit-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(leadData),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || result.error) {
+                // Trata erro de validação ou erro interno da API
+                throw new Error(result.error || "Erro desconhecido na API. Verifique os logs.");
+            }
+
+            // 3. SE DEU CERTO: Renderiza o resultado usando os dados EXATOS devolvidos pela API
+            setResultadoCalculo({
+                ...result.resultData, 
+                protocol: result.protocol, 
+                score: result.score, 
+            });
+
+            // 4. Disparo de evento de rastreamento GA4 (Ponto 5)
+            if (typeof window !== 'undefined' && window.dataLayer) {
+                window.dataLayer.push({
+                    'event': 'lead_submit',
+                    'serviceType': 'pix',
+                    'leadScore': result.score,
+                    'protocol': result.protocol,
+                    'formLocation': 'LP_Pix',
+                    ...utmParams, // <-- PONTO 5: ENVIA OS UTMS PARA O DATALAYER
+                });
+            }
+
+            setLeadStep(false); // Sai da tela de lead
+
+        } catch (error) {
+            console.error("Falha ao processar o lead PIX:", error.message);
+            setSubmitError(`Houve um erro: ${error.message}. Tente novamente, por favor.`);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    // --- Ações de botões auxiliares (Mantidas) ---
     const handleUrgenteClick = () => {
         window.open(
             "https://wa.me/5599999999999?text=Meu caso é urgente (acima de R$5000)",
@@ -181,7 +156,6 @@ export default function PixPage() {
             </div>
 
             <StepsSection serviceType="pix" />
-
             <Carousel serviceType="pix" />
 
             {/* FORMULÁRIO / RESULTADO */}
@@ -192,6 +166,7 @@ export default function PixPage() {
                 {!leadStep && !resultadoCalculo && (
                     <form onSubmit={handleSubmit}>
                         <div className="grid-2-cols">
+                            {/* ... (Input Valor e Data - Mantidos) ... */}
                             <div className="form-group">
                                 <label>Valor do PIX (R$)</label>
                                 <input
@@ -232,6 +207,42 @@ export default function PixPage() {
                             </select>
                         </div>
 
+                        {/* CAMPOS OPCIONAIS ADICIONADOS ANTERIORMENTE */}
+                        <div className="grid-2-cols mt-4">
+                            <div className="form-group">
+                                <label>Seu Banco (Pagador) <span className="text-gray-500 font-normal">(opcional)</span></label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    placeholder="Ex: Banco do Brasil"
+                                    value={bancoPagador}
+                                    onChange={(e) => setBancoPagador(e.target.value)}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Chave PIX do Destino <span className="text-gray-500 font-normal">(opcional)</span></label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    placeholder="Ex: CPF, Telefone ou E-mail"
+                                    value={chavePix}
+                                    onChange={(e) => setChavePix(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="form-group mt-4">
+                            <label>ID da Transação (E2E ou Código de Autenticação) <span className="text-gray-500 font-normal">(opcional)</span></label>
+                            <input
+                                type="text"
+                                className="form-input"
+                                placeholder="Ex: E202110051234567890123456789"
+                                value={idPix}
+                                onChange={(e) => setIdPix(e.target.value)}
+                            />
+                        </div>
+
+
+                        {/* ... (Outros campos mantidos) ... */}
                         <div className="form-group mt-4">
                             <label>Você já tentou resolver com o banco?</label>
                             <select
@@ -264,9 +275,9 @@ export default function PixPage() {
                             Esta é uma análise prévia. A devolução depende da resposta do banco e do Banco Central.
                         </p>
                         {formError && (
-                        <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
-                            {formError}
-                        </div>
+                            <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
+                                {formError}
+                            </div>
                         )}
 
                         <button type="submit" className="btn-submit mt-4">
@@ -280,17 +291,15 @@ export default function PixPage() {
                     <form onSubmit={handleLeadSubmit} className="lead-form mt-6">
                         <h3>✉️ Para enviar sua análise com detalhes</h3>
                         <p>Precisamos apenas de seus dados para personalizar e entregar o resultado completo.</p>
-
+                        {/* ... (Campos de Lead mantidos: nome, whats, email) ... */}
                         <div className="form-group mt-4">
                             <label>Nome completo</label>
                             <input className="form-input" required value={nome} onChange={(e) => setNome(e.target.value)} />
                         </div>
-
                         <div className="form-group mt-4">
                             <label>WhatsApp com DDD</label>
                             <input className="form-input" type="tel" required placeholder="(11) 99999-9999" value={whats} onChange={(e) => setWhats(e.target.value)} />
                         </div>
-
                         <div className="form-group mt-4">
                             <label>E-mail</label>
                             <input className="form-input" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -301,17 +310,17 @@ export default function PixPage() {
                         </p>
 
                         {submitError && (
-                        <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
-                            {submitError}
-                        </div>
+                            <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
+                                {submitError}
+                            </div>
                         )}
 
                         <button
-                        type="submit"
-                        className="btn-submit mt-4"
-                        disabled={isSubmitting}
+                            type="submit"
+                            className="btn-submit mt-4"
+                            disabled={isSubmitting}
                         >
-                        {isSubmitting ? "Enviando..." : "Receber Resultado"}
+                            {isSubmitting ? "Enviando..." : "Receber Resultado"}
                         </button>
                     </form>
                 )}
@@ -321,19 +330,11 @@ export default function PixPage() {
                     <>
                         <ResultDisplay
                             {...resultadoCalculo}
-                            leadData={{
-                                nome,
-                                whats,
-                                email,
-                                valor,
-                                fraudeTipo,
-                                tentouResolver,
-                                erroTipo,
-                            }}
+                        // Removido leadData. ResultDisplay não precisa mais dos dados brutos do lead
                         />
 
 
-                        {/* POPUP UPLOAD */}
+                        {/* POPUP UPLOAD (Mantido) */}
                         {mostrarUpload && (
                             <div className="popup-overlay">
                                 <div className="popup-card">

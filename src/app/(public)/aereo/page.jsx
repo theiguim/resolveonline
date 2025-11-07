@@ -2,20 +2,27 @@
 import { useState, useRef } from "react";
 import "../../../styles/FormPages.css";
 import ResultDisplay from "../../../components/ResultDisplay/ResultDisplay";
+
+// Importações de Layout (Mantidas)
 import Link from "next/link";
 import Carousel from "@/components/Carousel/Carousel";
 import Faq from "@/components/Faq/Faq";
 import RelatedServices from "@/components/RelatedServices/RelatedServices";
 import StepsSection from "@/components/StepsSection/StepsSection";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel/TestimonialsCarousel";
-import { submitForm } from "../actions/formActions";
+// NOVO: Importa o Hook de UTMs
+import { useUtmParams } from '@/hooks/useUtmParams'; 
+
 
 export default function AereoPage() {
+    // LÊ OS PARÂMETROS UTM DA URL (Ponto 5)
+    const utmParams = useUtmParams(); 
+
     // ===========================
     // 🧩 Estados principais
     // ===========================
     const [problema, setProblema] = useState("atraso");
-    const [escopo, setEscopo] = useState("domestico");
+    const [escopo, setEscopo] = useState("domestico"); 
     const [horas, setHoras] = useState("");
     const [pernoite, setPernoite] = useState("nao");
     const [despesas, setDespesas] = useState(0);
@@ -32,121 +39,88 @@ export default function AereoPage() {
     const scrollRef = useRef(null);
 
     // ===========================
-    // 📊 Lógica de simulação
+    // 📊 Lógica de simulação (Qualificação)
     // ===========================
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const h = parseFloat(horas) || 0;
-        const d = parseFloat(despesas) || 0;
-        let direitos = [];
-        let checklist = [
-            "Cópia dos Bilhetes Aéreos ou E-ticket",
-            "Documento de Identificação (RG/CNH)",
-            "Comprovante de Residência",
-            "Prints ou comunicações da companhia aérea",
-        ];
-
-        const disclaimer = "Esta é uma estimativa. A análise final depende de fatores como causa do problema, responsabilidade da companhia aérea e documentação apresentada.";
-        const ctaText = "Continuar para Atendimento via WhatsApp";
-
-        // ------------------------
-        // Regras por tipo de problema
-        // ------------------------
-        if (problema === "atraso") {
-            checklist.push("Comprovantes de despesas (alimentação, táxi, hotel)");
-            if (h < 1) {
-                direitos.push("Atrasos inferiores a 1 hora geralmente não geram direito à assistência material.");
-            } else if (h >= 1 && h < 2) {
-                direitos.push("A partir de 1 hora de atraso: direito à comunicação (internet, telefonemas).");
-            } else if (h >= 2 && h < 4) {
-                direitos.push("A partir de 2 horas de atraso: direito à alimentação (voucher, lanche, bebida).");
-            } else if (h >= 4) {
-                direitos.push("A partir de 4 horas de atraso: direito a reacomodação imediata ou reembolso integral.");
-                if (pernoite === "sim") {
-                    direitos.push("Como houve pernoite, há direito a hospedagem e transporte de ida e volta.");
-                }
-                direitos.push("Pode haver direito a indenização por danos morais.");
-            }
-        } else if (problema === "cancelamento") {
-            checklist.push("Aviso de cancelamento (e-mail, SMS, aplicativo)");
-            direitos.push("Cancelamento sem aviso prévio de 72h garante direito à reacomodação, reembolso ou compensação financeira.");
-            direitos.push("Se não recebeu opção de reacomodação ou reembolso, pode haver falha grave do transportador.");
-        } else if (problema === "overbooking") {
-            checklist.push("Comprovante de comparecimento e cartão de embarque.");
-            direitos.push("Em caso de overbooking (preterição de embarque), você tem direito à compensação financeira imediata e assistência material.");
-            direitos.push("A companhia deve oferecer reacomodação ou reembolso. Caso não tenha ocorrido, há forte indicativo para indenização.");
-        } else if (problema === "bagagem") {
-            checklist.push("Registro de Irregularidade de Bagagem (RIB).");
-            direitos.push("Em extravio, a empresa deve localizar e devolver sua mala em até 7 dias (voo doméstico) ou 21 dias (internacional).");
-            direitos.push("Se ultrapassado o prazo, ou se houve despesas, há direito a reembolso e possível indenização.");
+        if ((problema === "atraso" || problema === "cancelamento") && h < 0) {
+            setSubmitError("As horas de atraso devem ser zero ou positivas.");
+            return;
         }
 
-        // Resultado base
-        setResultadoCalculo({
-            title: "Resultado da Análise:",
-            content: direitos,
-            checklist,
-            disclaimer,
-            expenses: d,
-            ctaText,
-            serviceType: "Aéreo"
-        });
-
-        // Exibe etapa de coleta de dados antes de renderizar o resultado
+        setSubmitError(null);
         setMostrarLeadForm(true);
+        setResultadoCalculo(null);
     };
 
     // ===========================
-    // 📩 Envio de dados do lead
+    // 📩 Envio de dados do lead (Chama a API Route)
     // ===========================
     const handleLeadSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         setSubmitError(null);
 
-        // 1. Monta o objeto com todos os dados
+        // 1. Monta o objeto com todos os dados (Simulador + Lead + UTMs)
         const leadData = {
-        nome,
-        whats,
-        email,
-        problema,
-        escopo,
-        horas,
-        pernoite,
-        despesas,
+            serviceType: 'aereo', // CRÍTICO: Identificador da vertical
+            nome,
+            whats,
+            email,
+            problema,
+            escopo,
+            horas: parseFloat(horas) || 0,
+            pernoite,
+            despesas: parseFloat(despesas) || 0,
+            ...utmParams, // <-- PONTO 5: INCLUI OS UTMS NO PAYLOAD DA API
         };
 
         try {
-        // 2. Chama a Server Action
-        const { success, error } = await submitForm('aereo', leadData);
+            // 2. Tenta enviar para a API Route (/api/submit-lead)
+            const response = await fetch('/api/submit-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(leadData),
+            });
 
-        if (error) {
-            throw new Error(error);
-        }
+            const result = await response.json();
 
-        // 3. Se deu certo, continua o fluxo
-        setMostrarLeadForm(false);
-        setResultadoCalculo((prev) => ({
-            ...prev,
-            leadData: leadData,
-        }));
+            if (!response.ok || result.error) {
+                throw new Error(result.error || "Erro desconhecido ao processar lead aéreo.");
+            }
 
+            // 3. SE DEU CERTO: Renderiza o resultado usando os dados EXATOS devolvidos pela API
+            setResultadoCalculo({
+                ...result.resultData, 
+                protocol: result.protocol,
+                score: result.score,
+            });
+
+            // 4. Dispara evento de rastreamento GA4 (Ponto 5)
+            if (typeof window !== 'undefined' && window.dataLayer) {
+                window.dataLayer.push({
+                   'event': 'lead_submit',
+                   'serviceType': 'aereo',
+                   'leadScore': result.score,
+                   'protocol': result.protocol,
+                   'formLocation': 'LP_Aereo',
+                   ...utmParams, // <-- PONTO 5: ENVIA OS UTMS PARA O DATALAYER
+                });
+            }
+
+            setMostrarLeadForm(false); // Sai da tela de lead
+            
         } catch (error) {
-        // 4. Se deu erro
-        console.error("Falha ao enviar formulário:", error.message);
-        setSubmitError("Houve um erro ao enviar seus dados. Tente novamente, por favor.");
+            console.error("Falha ao processar o lead Aéreo:", error.message);
+            setSubmitError(`Houve um erro: ${error.message}. Tente novamente, por favor.`);
         } finally {
-        // 5. Para o loading
-        setIsSubmitting(false);
+            setIsSubmitting(false);
         }
     };
-
-    // ===========================
-    // 🔄 Scroll
-    // ===========================
-    const scrollLeft = () => scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
-    const scrollRight = () => scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
 
     // ===========================
     // 🧱 Renderização
@@ -169,9 +143,10 @@ export default function AereoPage() {
             <div className="max-w-3xl form-card box-shadow">
                 <h2 className="form-title">Calculadora de Direitos do Passageiro Aéreo</h2>
 
-                {/* FORM PRINCIPAL */}
+                {/* FORM PRINCIPAL (Simulador) */}
                 {!mostrarLeadForm && !resultadoCalculo && (
                     <form onSubmit={handleSubmit}>
+                        {/* ... (Campos do Simulador mantidos) ... */}
                         <div className="form-group">
                             <label className="form-label">Qual foi o problema?</label>
                             <select
@@ -249,39 +224,21 @@ export default function AereoPage() {
                 {mostrarLeadForm && (
                     <form onSubmit={handleLeadSubmit} className="mt-6">
                         <h3 className="form-title">✉️ Para enviar sua análise com detalhes</h3>
+                        {/* ... (Campos de Lead mantidos) ... */}
                         <p className="text-gray-600 mb-4">
                             Precisamos apenas dos seus dados para personalizar e entregar o resultado completo.
                         </p>
                         <div className="form-group">
                             <label className="form-label">Nome completo</label>
-                            <input
-                                type="text"
-                                className="form-input"
-                                value={nome}
-                                onChange={(e) => setNome(e.target.value)}
-                                required
-                            />
+                            <input type="text" className="form-input" value={nome} onChange={(e) => setNome(e.target.value)} required />
                         </div>
                         <div className="form-group">
                             <label className="form-label">WhatsApp com DDD</label>
-                            <input
-                                type="tel"
-                                className="form-input"
-                                placeholder="(31) 99999-9999"
-                                value={whats}
-                                onChange={(e) => setWhats(e.target.value)}
-                                required
-                            />
+                            <input type="tel" className="form-input" placeholder="(31) 99999-9999" value={whats} onChange={(e) => setWhats(e.target.value)} required />
                         </div>
                         <div className="form-group">
                             <label className="form-label">E-mail</label>
-                            <input
-                                type="email"
-                                className="form-input"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
+                            <input type="email" className="form-input" value={email} onChange={(e) => setEmail(e.target.value)} required />
                         </div>
 
                         <div className="form-privacy mt-4 text-sm text-gray-500">
@@ -289,32 +246,24 @@ export default function AereoPage() {
                         </div>
 
                         {submitError && (
-              <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
-                {submitError}
-              </div>
-            )}
+                            <div className="p-3 my-3 text-red-700 bg-red-100 border border-red-200 rounded-md">
+                                {submitError}
+                            </div>
+                        )}
 
-            <button
-              type="submit"
-              className="btn-submit mt-4"
-              disabled={isSubmitting} // Desabilita enquanto envia
-            >
-              {isSubmitting ? "Enviando..." : "Ver meu resultado agora"}
-            </button>
-          </form>
+                        <button
+                            type="submit"
+                            className="btn-submit mt-4"
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? "Enviando..." : "Ver meu resultado agora"}
+                        </button>
+                    </form>
                 )}
 
-                {/* RESULTADO FINAL */}
+                {/* RESULTADO FINAL (Só aparece após a submissão do lead) */}
                 {resultadoCalculo && !mostrarLeadForm && (
-                    <ResultDisplay {...resultadoCalculo} leadData={{
-                        nome,
-                        whats,
-                        email,
-                        problema,
-                        horas,
-                        pernoite,
-                        despesas
-                    }} />
+                    <ResultDisplay {...resultadoCalculo} />
                 )}
             </div>
 
