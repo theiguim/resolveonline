@@ -267,7 +267,7 @@ function generateWhatsappMessage(serviceType, data, protocol, score) {
     const mensagemCompleta = `
 ${cabecalho}
 
-*Lead:* ${data.nome}
+*Nome:* ${data.nome}
 *WhatsApp:* ${data.whats}
 *E-mail:* ${data.email}
 
