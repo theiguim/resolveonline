@@ -7,8 +7,8 @@ export async function middleware(req) {
 
   // 1. Crie o cliente Supabase para o servidor (Middleware)
   const supabase = createServerClient(
-    process.env.PUBLIC_SUPABASE_URL,
-    process.env.PUBLIC_SUPABASE_ANON_KEY,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         get(name) {
@@ -51,6 +51,13 @@ export async function middleware(req) {
   
   // URL da página de login do portal
   const loginUrl = '/portal/login';
+  const recURL = '/portal/recuperar-senha';
+  const redefinirURL = '/portal/redefinir-senha';
+
+  // Permite acesso às páginas de redefinição e recuperação de senha sem autenticação
+  if (pathname === redefinirURL || pathname === recURL) {
+    return res;
+  }
 
   // 3. Regra de proteção
   // Rotas protegidas são tudo dentro de /portal/ EXCETO a própria página de login
