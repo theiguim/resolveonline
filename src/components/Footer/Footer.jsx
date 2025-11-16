@@ -7,10 +7,20 @@ export default function Footer() {
   return (
     <footer>
       <div className="footer-content">
+        <div className="footer-left">
         <div>
           <img className='logo-footer'  src="/images/logo-footer-main.png" alt="" />
           {/* <p>Seus direitos, nossa luta.</p> */}
         </div>
+        <div>
+          <h2>Razão Social</h2>
+          <li>VIVO SERVIÇOS</li>
+        </div>
+        <div>
+          <h2>CNPJ</h2>
+          <li>26.433.875/0001-70</li>
+        </div>
+      </div>
 
         <div>
           <h2>Serviços</h2>

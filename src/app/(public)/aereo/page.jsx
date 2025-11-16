@@ -20,6 +20,7 @@ export default function AereoPage() {
     const [pernoite, setPernoite] = useState("nao");
     const [despesas, setDespesas] = useState(0);
     const [resultadoCalculo, setResultadoCalculo] = useState(null);
+    const [antecedenciaAviso, setAntecedenciaAviso] = useState('');
 
     // Etapa de coleta de dados pessoais (lead)
     const [nome, setNome] = useState("");
@@ -187,6 +188,32 @@ export default function AereoPage() {
                             </select>
                         </div>
 
+                        {/* ================================================ */}
+                        {/* ================ NOVO CAMPO ADICIONADO ================ */}
+                        {/* ================================================ */}
+                        {problema === "cancelamento" && (
+                            <div className="form-group mt-4">
+                                <label className="form-label">Com quanta antecedência você foi avisado sobre o cancelamento do voo?</label>
+                                <select
+                                    className="form-input"
+                                    value={antecedenciaAviso} // Assumindo que você criará este estado
+                                    onChange={(e) => setAntecedenciaAviso(e.target.value)} // Assumindo que você criará este setter
+                                    required
+                                >
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="menos_72h">Menos de 72h antes do embarque</option>
+                                    <option value="mais_72h">72h ou mais antes do embarque</option>
+                                </select>
+                                <p className="text-sm-gray mt-2">
+                                    Considere a data e hora em que recebeu a notificação da companhia aérea.
+                                </p>
+                            </div>
+                        )}
+                        {/* ================================================ */}
+                        {/* ================ FIM DO NOVO CAMPO ================= */}
+                        {/* ================================================ */}
+
+
                         {(problema === "atraso" || problema === "cancelamento") && (
                             <div className="grid-2-cols mt-4">
                                 <div className="form-group">
@@ -313,7 +340,8 @@ export default function AereoPage() {
                         problema,
                         horas,
                         pernoite,
-                        despesas
+                        despesas,
+                        antecedenciaAviso // VARIÁVEL ADICIONADA AQUI
                     }} />
                 )}
             </div>
