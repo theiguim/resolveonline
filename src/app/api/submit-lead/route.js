@@ -48,17 +48,28 @@ function calculateScore(serviceType, data) {
             const horas = parseFloat(data.horas) || 0;
             const isInternacional = data.escopo === 'internacional';
 
-            // SCORE A: DANO ALTO E INTERNACIONAL (ou 6h+)
-            if (horas >= 6 && isInternacional) {
+            // --- INÍCIO DA MODIFICAÇÃO ---
+            const problema = data.problema;
+            const antecedencia = data.antecedenciaAviso; // Captura o novo dado
+
+            // REGRA A (Prioridade Máxima): Casos graves
+            if ((horas >= 6 && isInternacional) || (problema === 'cancelamento' && antecedencia === 'menos_72h' && horas >= 4)) {
                 return { score: 'A', eta: '2 horas úteis', title: 'Alta Probabilidade de Indenização (Prioridade Máxima)' };
             }
-            // SCORE B: DANO MÉDIO/ALTO (Direito a Reacomodação/Hospedagem)
-            if (horas >= 4) {
-                return { score: 'B', eta: '24 horas úteis', title: 'Direitos de Reacomodação Confirmados.' };
-            }
-            // SCORE C: DANO BAIXO/MÉDIO
-            return { score: 'C', eta: '48 horas úteis', title: 'Direitos básicos de assistência ou análise alternativa.' };
 
+            // REGRA B (Prioridade Média): Casos com forte direito
+            if (horas >= 4 || (problema === 'cancelamento' && antecedencia === 'menos_72h')) {
+                return { score: 'B', eta: '24 horas úteis', title: 'Direitos de Reacomodação/Indenização Confirmados.' };
+            }
+
+            // REGRA C (Baixa Prioridade): Casos que precisam de mais análise
+            if (problema === 'cancelamento' && antecedencia === 'mais_72h' && horas < 4) {
+                return { score: 'C', eta: '48 horas úteis', title: 'Análise de Cancelamento (Aviso Prévio Cumprido)' };
+            }
+
+            // SCORE C PADRÃO (Atrasos < 4h, Overbooking, Bagagem)
+            return { score: 'C', eta: '48 horas úteis', title: 'Direitos básicos de assistência ou análise alternativa.' };
+        // --- FIM DA MODIFICAÇÃO ---
 
         case 'energia':
             const valorMedio = parseFloat(data.valorMedio) || 0;
@@ -133,6 +144,14 @@ function generateResultContent(serviceType, data, scoring, protocol) {
         const horas = parseFloat(data.horas) || 0;
 
         content.push(`Problema: ${data.problema} (${horas} horas de atraso).`);
+
+        if (data.problema === 'cancelamento') {
+            const avisoText = data.antecedenciaAviso === 'menos_72h'
+                ? 'Menos de 72h antes do embarque'
+                : '72h ou mais antes do embarque';
+            content.push(`Aviso prévio recebido: ${avisoText}.`);
+        }
+
         if (horas >= 4) {
             content.push("Você tem fortes indícios de direito à indenização por danos morais.");
         }
@@ -222,7 +241,6 @@ function generateWhatsappMessage(serviceType, data, protocol, score) {
 - Tipo de Erro: ${data.erroTipo || 'Não informado'}
 `;
             break;
-
         case "aereo":
             detalhes = `
 ✈️ Simulação Aéreo:
@@ -231,7 +249,9 @@ function generateWhatsappMessage(serviceType, data, protocol, score) {
 - Pernoite: ${data.pernoite || 'Não'}
 - Despesas Extras: R$ ${data.despesas || '0,00'}
 - Escopo: ${data.escopo || 'Doméstico'}
+- Aviso Cancelamento: ${data.antecedenciaAviso || 'N/A'}
 `;
+            break;
             break;
 
         case 'energia':

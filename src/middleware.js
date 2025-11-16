@@ -51,6 +51,13 @@ export async function middleware(req) {
   
   // URL da página de login do portal
   const loginUrl = '/portal/login';
+  const recURL = '/portal/recuperar-senha';
+  const redefinirURL = '/portal/redefinir-senha';
+
+  // Permite acesso às páginas de redefinição e recuperação de senha sem autenticação
+  if (pathname === redefinirURL || pathname === recURL) {
+    return res;
+  }
 
   // 3. Regra de proteção
   // Rotas protegidas são tudo dentro de /portal/ EXCETO a própria página de login

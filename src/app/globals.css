@@ -2,30 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-    padding: 0;
-    margin: 0;
+/* === RESET BASE === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html{
-    width: 100vw;
-    overflow-x: hidden;
+html,
+body {
+  width: 100vw;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-body{
-    width: 100vw;
-    overflow-x: hidden;
+/* === CORES BASE (modo claro) === */
+@layer base {
+  :root {
+    /* Paleta Resolve Online */
+    --brand: 357 82% 48%;          /* vermelho principal */
+    --brand-dark: 357 70% 38%;     /* hover */
+    --accent: 210 30% 20%;         /* azul petróleo */
+    --background: 0 0% 100%;       /* fundo branco */
+    --foreground: 210 20% 15%;     /* texto escuro */
+    --muted: 210 10% 60%;          /* textos secundários */
+    --border: 210 10% 85%;         /* bordas leves */
+  }
+
+  /* === MODO ESCURO === */
+  .dark {
+    --brand: 357 82% 60%;
+    --brand-dark: 357 70% 50%;
+    --accent: 210 25% 90%;
+    --background: 210 20% 10%;
+    --foreground: 0 0% 100%;
+    --muted: 210 10% 70%;
+    --border: 210 10% 30%;
+  }
+
+  body {
+    @apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))] antialiased transition-colors duration-300;
+  }
+
+  a {
+    @apply text-[hsl(var(--brand))] hover:text-[hsl(var(--brand-dark))] transition-colors;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
 }
 
-.wpp-fixed{
-    position: fixed;
-    z-index: 100;
-    right: 1vw;
-    bottom: 4vh;
-    width: 70px;
-    transition: .3s;
+/* === COMPONENTES UTILITÁRIOS === */
+.wpp-fixed {
+  position: fixed;
+  z-index: 100;
+  right: 1vw;
+  bottom: 4vh;
+  width: 70px;
+  transition: transform 0.3s ease;
 }
 
-.wpp-fixed:hover{
-    transform: scale(1.05) !important;
+.wpp-fixed:hover {
+  transform: scale(1.05);
+}
+
+/* === CLASSES DE AJUDA === */
+.btn-primary {
+  @apply inline-flex items-center justify-center px-5 py-2.5 rounded-xl 
+         bg-[hsl(var(--brand))] text-white font-medium shadow-sm hover:bg-[hsl(var(--brand-dark))];
+}
+
+.card {
+  @apply rounded-2xl bg-[hsl(var(--background))] border border-[hsl(var(--border))] shadow p-6;
 }

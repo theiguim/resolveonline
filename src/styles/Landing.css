@@ -52,16 +52,41 @@ a {
     margin-top: 100px;
 }
 
+/* ========================================================== */
+/* MUDANÇA 1: .hero-section AGORA ESCONDE O OVERFLOW */
+/* ========================================================== */
 .hero-section {
     max-width: 1500px;
-    margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden; /* <-- ESSENCIAL PARA O SLIDE FUNCIONAR */
 }
 
-.hero-section-wrapper {
+/* ========================================================== */
+/* MUDANÇA 2: NOVO CONTAINER PARA OS SLIDES */
+/* ========================================================== */
+.hero-slides-track {
+    display: flex;
+    /* 5 slides = 500% de largura */
+    width: 88%; 
+    /* A animação de slide! 0.8s de duração */
+    transition: transform 0.8s ease-in-out; 
+}
+
+
+/* ========================================================== */
+/* MUDANÇA 3: REGRA DO SLIDE SIMPLIFICADA */
+/* (SUBSTITUA AS REGRAS ANTIGAS .hero-slide e .hero-slide.active) */
+/* ========================================================== */
+.hero-section-wrapper.hero-slide {
+    /* Cada slide ocupa 100% do container */
     width: 100%;
+    flex: 0 0 100%;
+    box-sizing: border-box; /* Garante que o padding não quebre o layout */
+
+    /* Estilos visuais que você já tinha */
     min-height: 70vh;
     height: 600px;
     margin: 0 5vw;
@@ -71,13 +96,13 @@ a {
     align-items: start;
     justify-content: center;
     flex-direction: column;
-    background: linear-gradient(to right, #091735ec 8%, #091735c4 45%, #09173518 60%), url(/images/teste2.jpg);
-
-    /* background-image: url(/images/teste2.jpg); */
+    color: #ebf5ff;
     background-size: cover;
     background-position: top;
-    color: #ebf5ff;
+    
+    /* Removemos position: absolute, opacity, z-index e transition: opacity */
 }
+
 
 .hero-content {
     width: 500px;
@@ -604,6 +629,34 @@ a {
     padding-top: 5px;
 }
 
+/* ========================================================== */
+/* ESTILOS DOS "DOTS" (MANTIDOS) */
+/* ========================================================== */
+
+.hero-dots {
+    position: absolute;
+    bottom: 40px; /* Distância do fundo */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 5; /* Garante que fiquem acima dos slides */
+}
+
+.hero-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5); /* Cor inativa */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hero-dot.active {
+    background-color: white; /* Cor ativa */
+}
+
 @media(max-width:1300px) {
 
     .passo-a-passo-container {
@@ -612,16 +665,6 @@ a {
         justify-content: center;
         gap: 50px;
     }
-
-    /* .scroll-btn {
-        display: block;
-        margin-left: 20px;
-    } */
-
-    /* .services-content {
-        margin-left: 20px;
-
-    } */
 
     .passo-a-passo-header {
         width: 70vw;
@@ -641,38 +684,78 @@ a {
     }
 }
 
-/* Responsividade simples para telas menores */
 
-
+/* Responsividade para Telas Menores (Tablets e Celulares) */
 @media (max-width: 800px) {
 
+    /* --- 1. AJUSTES NO HERO (A MÁGICA DO SWIPE) --- */
 
-    /* .hero-section {
-        max-width: 1500px;
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    } */
-
-    .hero-section-wrapper {
-        padding: 20px;
-        justify-content: end;
-        align-items: center;
-        background-image:
-            linear-gradient(to top, black 0%, transparent 95%),
-            url(/images/teste2.jpg);
-        background-position: 60% 0;
+    /* O container .hero-section perde suas margens de desktop */
+    .hero-section {
+        margin: 0;
+        border-radius: 0;
     }
 
+    /* O "track" (trilho) vira o container de scroll */
+    .hero-slides-track {
+        width: 100%;                  /* Ocupa 100% da tela */
+        transform: none !important;     /* DESLIGA a animação do JS */
+        overflow-x: auto;             /* HABILITA o scroll horizontal (arrastar) */
+        scroll-snap-type: x mandatory;/* "Trava" o slide no lugar */
+        
+        /* Damos um padding nas laterais do trilho */
+        padding: 0 5vw;
+        box-sizing: border-box;
+
+        /* Um vão entre os cards */
+        gap: 15px; 
+
+        /* Esconde a barra de rolagem */
+        -ms-overflow-style: none;  /* IE e Edge */
+        scrollbar-width: none;     /* Firefox */
+    }
+
+    /* Esconde a barra de rolagem (Chrome, Safari) */
+    .hero-slides-track::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Cada card agora ocupa 90% da tela */
+    .hero-section-wrapper.hero-slide {
+        width: 90vw;
+        flex: 0 0 90vw; /* Não encolhe, não cresce, base de 90vw */
+        scroll-snap-align: center; /* Centraliza o card no "lock" do swipe */
+        margin: 0;
+        border-radius: 20px; /* Borda arredondada no card */
+        
+        /* Sua regra antiga de imagem de fundo do @media (max-width: 800px) */
+        /* Eu removi, pois o 'background-position: center' global já resolve */
+    }
+
+    /* Esconde os pontinhos */
+    .hero-dots {
+        display: none;
+    }
+
+    /* --- 2. AJUSTES NO CONTEÚDO DO HERO (TEXTO E CTA) --- */
+
+    /* Suas regras de responsividade que já existiam, mas ajustadas */
     .hero-content {
-        width: auto;
+        width: 100%; /* Ocupa 100% do card */
         max-width: 400px;
         gap: 20px;
-        align-items: center;
-        justify-content: center;
+        
+        /* Centraliza tudo (texto e botão) */
+        align-items: center; 
         text-align: center;
-        padding: 0 0 40px 0;
+        
+        /* Joga o conteúdo para baixo no card */
+        justify-content: flex-end; 
+        flex-grow: 1; /* Faz o conteúdo ocupar o espaço vertical */
+        
+        /* Remove o padding da esquerda e adiciona embaixo */
+        padding: 0 20px 40px 20px;
+        box-sizing: border-box;
     }
 
     .hero-content>h1 {
@@ -683,6 +766,9 @@ a {
     .hero-content>p {
         line-height: 1.2em;
     }
+
+
+    /* --- 3. SUAS OUTRAS REGRAS RESPONSIVAS (MANTIDAS) --- */
 
     .range-content {
         flex-direction: column;
@@ -707,15 +793,16 @@ a {
         scrollbar-width: none;
         /* Firefox */
     }
-
-    .services-txt>h2 {
-        /* background-color: red; */
-    }
 }
 
+/* Ajuste final para celulares bem pequenos */
 @media (max-width:450px) {
     .hero-content>h1 {
         font-size: 46px;
         line-height: 1em;
     }
+    .hero-dots {
+        display:none;
+    }
 }
+
