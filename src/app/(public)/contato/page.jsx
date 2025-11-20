@@ -107,7 +107,7 @@ export default function ContatoPage() {
         <div className="text-center-box" style={{ marginTop: "2rem" }}>
           <p>Ou fale conosco via:</p>
           <p style={{ fontWeight: 600 }}>E-mail: <a href="mailto:contato@resolveonline.com.br">contato@resolveonline.com.br</a></p>
-          <p style={{ fontWeight: 600 }}>WhatsApp: <a href="https://wa.me/553184815969?text=Ol%C3%A1,%20eu%20gostaria%20de%20conhecer%20melhor%20a%20Resolve%20Online.">(31) 8481-5969</a></p>
+          <p style={{ fontWeight: 600 }}>WhatsApp: <a href="https://wa.me/5531998363490?text=Ol%C3%A1,%20eu%20gostaria%20de%20conhecer%20melhor%20a%20Resolve%20Online.">(31)99836-3490</a></p>
         </div>
       </div>
     </main>

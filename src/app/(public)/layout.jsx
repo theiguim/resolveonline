@@ -11,7 +11,7 @@ export default function PublicLayout({ children }) {
     <div className={inter.className}>
       {/* Botão fixo do WhatsApp */}
       <a
-        href="https://wa.me/553184815969?text=Ol%C3%A1,%20eu%20gostaria%20de%20conhecer%20melhor%20a%20Resolve%20Online."
+        href="https://wa.me/5531998363490?text=Ol%C3%A1,%20eu%20gostaria%20de%20conhecer%20melhor%20a%20Resolve%20Online."
         target="_blank"
         rel="noopener noreferrer"
       >

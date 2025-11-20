@@ -2,26 +2,47 @@
 
 import Link from 'next/link';
 import './Footer.css';
+// Importando ícones (Exemplo usando Lucide, mas pode ser FontAwesome)
+import { Instagram, Linkedin, Facebook } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer>
       <div className="footer-content">
-        <div className="footer-left">
-        <div>
-          <img className='logo-footer'  src="/images/logo-footer-main.png" alt="" />
-          {/* <p>Seus direitos, nossa luta.</p> */}
-        </div>
-        <div>
-          <h2>Razão Social</h2>
-          <li>VIVO SERVIÇOS</li>
-        </div>
-        <div>
-          <h2>CNPJ</h2>
-          <li>26.433.875/0001-70</li>
-        </div>
-      </div>
 
+        {/* --- COLUNA ESQUERDA (Estilo BitBloom) --- */}
+        <div className="footer-left">
+          {/* Logo */}
+          <img
+            className='logo-footer'
+            src="/images/logo-footer-main.png"
+            alt="Logo Resolve Online"
+          />
+
+          {/* Bloco de Dados da Empresa */}
+          <div className="company-info">
+            <p className="company-name">VIVO SERVIÇOS</p>
+            <p className="company-cnpj">CNPJ: 26.433.875/0001-70</p>
+            <a href="mailto:contato@resolveonline.com.br" className="company-email">
+              contato@resolveonline.com.br
+            </a>
+          </div>
+
+          {/* Ícones de Redes Sociais */}
+          <div className="social-icons">
+            <a href="https://www.instagram.com/resolveonline.oficial/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <Instagram size={20} />
+            </a>
+            {/* <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <Linkedin size={20} />
+            </a> */}
+            <a href="https://www.facebook.com/profile.php?id=61583416754138#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <Facebook size={20} />
+            </a>
+          </div>
+        </div>
+
+        {/* --- DEMAIS COLUNAS (Mantidas iguais) --- */}
         <div>
           <h2>Serviços</h2>
           <ul>
@@ -46,7 +67,7 @@ export default function Footer() {
           <h2>Contato</h2>
           <ul>
             <li><Link href="mailto:contato@resolveonline.com.br">contato@resolveonline.com.br</Link></li>
-            <li><Link href="https://wa.me/553184815969?text=Ol%C3%A1,%20eu%20gostaria%20de%20conhecer%20melhor%20a%20Resolve%20Online." target="_blank">(31) 8481-5969</Link></li>
+            <li><Link href="https://wa.me/553184815969" target="_blank">(31) 8481-5969</Link></li>
             <li>Atendimento Nacional</li>
           </ul>
         </div>

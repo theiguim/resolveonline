@@ -68,3 +68,57 @@ footer {
   border-top: 1px solid #c3c7ca91;
   font-size: 15px;
 }
+
+/* Estilização do texto (CNPJ, Email) */
+.company-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #666; /* Cinza escuro igual da imagem */
+  font-size: 0.95rem;
+}
+
+.company-name {
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.company-cnpj {
+  margin: 0;
+}
+
+.company-email {
+  color: #2563eb; /* Azul padrão de link, ajuste para a cor da sua marca */
+  text-decoration: none;
+}
+
+.company-email:hover {
+  text-decoration: underline;
+}
+
+/* --- Estilo dos Ícones Sociais (Círculos) --- */
+.social-icons {
+  display: flex;
+  gap: 12px; /* Espaço entre os ícones */
+  margin-top: 8px;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;      /* Largura do círculo */
+  height: 40px;     /* Altura do círculo */
+  border-radius: 50%; /* Deixa redondo */
+  background-color: #f3f4f6; /* Cinza bem claro de fundo */
+  color: #374151;   /* Cor do ícone */
+  border: 1px solid #e5e7eb; /* Borda sutil opcional */
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: #e5e7eb; /* Escurece um pouco ao passar o mouse */
+  color: #000;
+  transform: translateY(-2px); /* Efeito leve de subida */
+}
