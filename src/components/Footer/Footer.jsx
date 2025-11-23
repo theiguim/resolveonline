@@ -46,7 +46,7 @@ export default function Footer() {
           <h2>Contato</h2>
           <ul>
             <li><Link href="mailto:contato@resolveonline.com.br">contato@resolveonline.com.br</Link></li>
-            <li><Link href="https://wa.me/553184815969?text=Ol%C3%A1,%20eu%20gostaria%20de%20conhecer%20melhor%20a%20Resolve%20Online." target="_blank">(31) 8481-5969</Link></li>
+            <li><Link href="https://wa.me/5531998363490?text=Ol%C3%A1,%20eu%20gostaria%20de%20conhecer%20melhor%20a%20Resolve%20Online." target="_blank">(31) 9 9836-3490</Link></li>
             <li>Atendimento Nacional</li>
           </ul>
         </div>
